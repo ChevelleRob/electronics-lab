@@ -17,9 +17,20 @@ Each item says where it appears: tool → section.
 - [ ] **Failure points (demo values, not from a datasheet):** the bulb starts heating toward burnout above 1.25 × its rating (7.5 V for a 6 V bulb) and goes almost at once at 2 ×; the motor above 1.6 × (about 9.6 V for a 6 V motor), and smokes before it burns out. The HEAT bar reaches its damage line at those points. Do these feel right for the lab's parts? *Simple Circuit → Power supply*
 - [ ] **Part currents (demo values):** 6 V bulb 0.5 A, 12 V bulb 0.25 A, 6 V motor 0.3 A, 12 V motor 0.15 A, each treated as a fixed resistance. *Simple Circuit → supply ammeter, status table*
 
+## Ohm's Law
+
+- [ ] **Letters:** E stands for electromotive force; I stands for the intensity of the current. *Ohm's Law → "Why E and I?" note*
+- [ ] **Kit resistors are rated ¼ W.** *Ohm's Law → Circuit (resistor label, "Too much current" note, status pill)*
+- [ ] **Resistor color code:** black 0, brown 1, red 2, orange 3, yellow 4, green 5, blue 6, violet 7, gray 8, white 9; gold tolerance band = ±5%; 4-band order is digit, digit, multiplier, tolerance. *Ohm's Law → resistor picture and the OHMS stepper in the bottom bar*
+- [ ] **E12 values:** 10, 12, 15, 18, 22, 27, 33, 39, 47, 56, 68, 82 in each decade (the tool uses 10 Ω to 1 MΩ). *Ohm's Law → OHMS stepper*
+- [ ] **Burnout timing (demo values):** a ¼ W resistor starts being damaged above ¼ W and goes in about 6 s at twice that, almost at once far above it. *Ohm's Law → Circuit*
+- [ ] **A voltmeter across an open (burned) resistor reads the full supply voltage.** *Ohm's Law → Circuit → "Too much current" note and the math box*
+
 ## Confirmed
 
 Checked by the instructor; no action needed.
 
 - [x] The class uses electron flow; electron flow is the true flow of DC electricity.
 - [x] Lab bench supplies go to 30 V at 5 A; most experiments use 6 V or 12 V.
+- [x] The class writes voltage as E (E = I × R).
+- [x] Practice answers within ±5% count as right.

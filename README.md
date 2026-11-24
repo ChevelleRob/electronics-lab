@@ -11,6 +11,7 @@ on a phone or a laptop. New tools are being developed and will be added soon.
 | Tool | Folder | What it covers |
 |------|--------|----------------|
 | Simple Circuit | [`simple-circuit/`](simple-circuit/) | A battery or 0–30 V power supply, a switch, and a bulb or motor with a fan. Animated electron flow (or conventional current), the same circuit as a picture and a schematic, what happens below and above a part's voltage rating, and a short check-yourself quiz |
+| Ohm's Law | [`ohms-law/`](ohms-law/) | E = I × R with a short intro to E, I and R. A live circuit with a 0–30 V supply, ammeter in series, voltmeter in parallel and E12 resistors with color bands that overheat and burn open; the Ohm's law triangle with worked steps and units/prefixes; practice problems with ±5% answers |
 
 ## Who it's for
 
