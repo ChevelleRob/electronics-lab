@@ -188,6 +188,7 @@ body.conv .legend i{background:repeating-linear-gradient(90deg,var(--cflow) 0 4p
 @media (max-width:360px){ .themebtn span{display:none} .themebtn{padding:4px 6px;margin-left:8px} .brand{gap:8px} }
 /* ---------- Engineering notation tool ---------- */
 body.has-bar .wrap{padding-bottom:calc(150px + env(safe-area-inset-bottom,0px))}
+body.beg.has-bar .wrap{padding-bottom:calc(110px + env(safe-area-inset-bottom,0px))}
 .forms{width:100%;border-collapse:collapse;margin-top:12px;background:var(--surface);border:1.5px solid var(--line);border-radius:10px;overflow:hidden;font-size:15px}
 .forms td{padding:7px 10px;border-top:1px solid var(--line);vertical-align:top}
 .forms tr:first-child td{border-top:0}
@@ -257,8 +258,15 @@ select{font:inherit;padding:9px 6px;border:1.5px solid var(--line);border-radius
 .fb ol{margin:6px 0 0;padding-left:22px} .fb li{margin:4px 0}
 .fb code,.note code,.try code,p code,li code{font-family:var(--mono);font-size:.92em;color:var(--c1);white-space:nowrap}
 .tally{font-weight:600;margin-top:12px}
+/* Beginner / Advanced */
+.modeseg{margin-top:16px}
+.modeseg button{padding:10px 6px;font-size:17px}
+body.beg .adv-only, body:not(.beg) .beg-only{display:none!important}
+.pfxl{color:var(--c1)}
 /* Bottom bar */
 .bar .in{grid-template-columns:auto minmax(0,1fr) auto;grid-template-areas:"lt rd rt" "st st st"}
+body.beg .bar .in{grid-template-areas:"lt rd rt"}
+@media (min-width:640px){ body.beg .bar .in{grid-template-columns:auto minmax(0,1fr) auto;grid-template-areas:"lt rd rt"} }
 .mvbtn{display:flex;flex-direction:column;align-items:center;gap:2px;background:#1A2228;border:1.5px solid rgba(255,255,255,.3);color:var(--onpanel);border-radius:10px;padding:6px 12px;cursor:pointer;font-weight:700;font-size:14px;line-height:1.1}
 .mvbtn span{font-size:22px}
 .mvbtn:disabled{opacity:.35;cursor:default}
@@ -278,11 +286,25 @@ select{font:inherit;padding:9px 6px;border:1.5px solid var(--line);border-radius
 <body>
 <header class="top">
   <div class="inner">
-    <div class="brand"><h1><a href="../" title="Back to Electronics Lab home">Electronics Lab</a></h1><span>Engineering notation</span><span class="ver">v1.0</span><button class="themebtn" id="themeBtn" type="button"></button></div>
+    <div class="brand"><h1><a href="../" title="Back to Electronics Lab home">Electronics Lab</a></h1><span>Engineering notation</span><span class="ver">v1.1</span><button class="themebtn" id="themeBtn" type="button"></button></div>
   </div>
 </header>
 
 <main class="wrap">
+  <div class="seg modeseg" id="modeSeg" role="group" aria-label="Beginner or Advanced">
+    <button data-v="beg" aria-pressed="true">Beginner</button><button data-v="adv" aria-pressed="false">Advanced</button>
+  </div>
+  <div class="beg-only">
+    <p class="intro">Prefixes are shortcuts for very big and very small numbers. Instead of writing <b>4,700 Ω</b> you write <b>4.7 kΩ</b>: the <b>k</b> (kilo) means × 1,000. Each prefix is 1,000 times bigger than the one below it.</p>
+    <table class="forms" aria-label="Regular numbers and the same numbers with a prefix">
+      <tr><td class="m" style="display:table-cell">Regular</td><td class="m" style="display:table-cell">With a prefix</td><td class="m" style="display:table-cell">Prefix means</td></tr>
+      <tr><td class="v">4,700 Ω</td><td class="v">4.7 kΩ</td><td class="m" style="display:table-cell">kilo: × 1,000</td></tr>
+      <tr><td class="v">0.0047 A</td><td class="v">4.7 mA</td><td class="m" style="display:table-cell">milli: ÷ 1,000</td></tr>
+      <tr><td class="v">0.000022 F</td><td class="v">22 µF</td><td class="m" style="display:table-cell">micro: ÷ 1,000,000</td></tr>
+    </table>
+    <p class="muted" style="font-size:15px;margin-top:8px">The usual way is to pick the prefix that leaves a number from 1 to 999 in front of it.</p>
+  </div>
+  <div class="adv-only">
   <p class="intro">Electronics numbers run from tiny to huge: a capacitor might be 0.000000000022 farads, a resistor 4,700,000 ohms. <b>Engineering notation</b> writes them as a number from 1 to 999 times a power of ten that is a <b>multiple of 3</b>. Every multiple of 3 has a prefix, so the power of ten turns straight into a letter like k, m or µ.</p>
   <table class="forms" aria-label="One number written four ways">
     <tr><td>Decimal</td><td class="v">0.0047 A</td><td class="m">Every zero written out</td></tr>
@@ -295,6 +317,7 @@ select{font:inherit;padding:9px 6px;border:1.5px solid var(--line);border-radius
     <p><b>What does 4.7E-3 mean?</b> “E” means “times ten to the power of”. <code>4.7E-3</code> is 4.7 × 10⁻³. Calculators, spreadsheets and computers write it this way because they can’t show a small raised number.</p>
     <p><b>Windows Calculator:</b> switch to <b>Scientific</b> mode. To type 4.7E-3, enter <code>4.7</code>, press <b>exp</b>, enter <code>3</code>, then press <b>+/−</b> to make it negative. The <b>F-E</b> button switches the display between ordinary and E notation. It has no engineering mode, so you move the exponent to a multiple of 3 yourself, which is exactly what this tool practices.</p>
   </div>
+  </div>
 
   <div class="seg views" id="viewSeg" role="group" aria-label="View">
     <button data-v="move" aria-pressed="true">Move point</button><button data-v="ladder" aria-pressed="false">Ladder</button><button data-v="practice" aria-pressed="false">Practice</button>
@@ -303,7 +326,7 @@ select{font:inherit;padding:9px 6px;border:1.5px solid var(--line);border-radius
   <div id="yourBox">
     <div class="lbl">Your number</div>
     <form class="yours" id="yourForm" autocomplete="off">
-      <input id="yourIn" inputmode="text" aria-label="Type a number, like 0.0047, 4.7E-3 or 4.7m" placeholder="0.0047, 4.7E-3 or 4.7m">
+      <input id="yourIn" inputmode="text" aria-label="Type a number, like 0.0047, 4.7E-3 or 4.7m" placeholder="0.0047 or 4.7m">
       <select id="unitSel" aria-label="Unit"></select>
       <button class="btn" type="submit">Show it</button>
     </form>
@@ -319,11 +342,19 @@ select{font:inherit;padding:9px 6px;border:1.5px solid var(--line);border-radius
     </div>
     <div class="cap"><span class="pill" id="formPill"></span></div>
     <div id="liveBox"><table class="forms" id="liveForms" aria-label="Your number written every way"></table></div>
-    <div class="try">
+    <div class="try beg-only">
+      <p><b>Try this:</b> start with 0.0047 A. Press <b>Point →</b> once. The point jumps 3 places right and the number gets 1,000 times bigger, so the prefix has to get 1,000 times smaller to keep the same value: 4.7 mA.</p>
+      <p>Press it again: 4,700 µA. Same current, but 1 to 999 in front is easier to read, so 4.7 mA is the usual way to write it.</p>
+    </div>
+    <div class="note beg-only">
+      <p><b>The balancing rule</b></p>
+      <p>Moving the point <b>right</b> makes the number bigger, so step <b>down</b> to a smaller prefix (kilo → none → milli → micro). Moving it <b>left</b> makes the number smaller, so step <b>up</b> to a bigger prefix. The value never changes, only how it’s written.</p>
+    </div>
+    <div class="try adv-only">
       <p><b>Try this:</b> start with 0.0047 A. Press <b>Point →</b> once. The point jumps 3 places right, the number gets 1,000 times bigger, and the power of ten drops by 3 to balance it: 4.7E-3 A, which is 4.7 mA.</p>
       <p>Switch the step to <b>1 place</b> and move until one digit sits in front of the point. That’s scientific notation. Then go back to 3 places and find engineering notation.</p>
     </div>
-    <div class="note">
+    <div class="note adv-only">
       <p><b>The balancing rule</b></p>
       <p>Moving the point <b>right</b> makes the number in front bigger, so the exponent goes <b>down</b> by the same number of places. Moving it <b>left</b> makes the number smaller, so the exponent goes <b>up</b>. The value never changes, only how it’s written.</p>
     </div>
@@ -357,10 +388,11 @@ select{font:inherit;padding:9px 6px;border:1.5px solid var(--line);border-radius
   <!-- ===== Practice ===== -->
   <section id="v-practice" hidden>
     <h2>Practice</h2>
-    <p>Rewrite each number the way it asks. Engineering notation means 1 to 999 in front and a power of ten that’s a multiple of 3. Type <b>u</b> if you can’t type µ.</p>
-    <div class="lbl">Level</div>
+    <p class="beg-only">Rewrite each number the way it asks. With a prefix, aim for 1 to 999 in front. Type <b>u</b> if you can’t type µ.</p>
+    <p class="adv-only">Rewrite each number the way it asks. Engineering notation means 1 to 999 in front and a power of ten that’s a multiple of 3. Type <b>u</b> if you can’t type µ.</p>
+    <div class="lbl">Prefixes</div>
     <div class="seg" id="lvlSeg" role="group" aria-label="Level">
-      <button data-v="basic" aria-pressed="true">Basic: M, k, m, µ</button><button data-v="full" aria-pressed="false">Full: P to p</button>
+      <button data-v="basic" aria-pressed="true">Common: M, k, m, µ</button><button data-v="full" aria-pressed="false">All: P to p</button>
     </div>
     <div class="prob">
       <p class="ptext" id="pText"></p>
@@ -384,9 +416,9 @@ select{font:inherit;padding:9px 6px;border:1.5px solid var(--line);border-radius
 <div class="bar" id="ctlBar">
   <div class="in">
     <button class="mvbtn" id="mvL" type="button" aria-label="Move the decimal point left"><span>←</span>Point</button>
-    <div class="rdout" aria-live="off"><small>E NOTATION</small><b id="rdE"></b><i id="rdP"></i></div>
+    <div class="rdout" aria-live="off"><small id="rdL">E NOTATION</small><b id="rdE"></b><i id="rdP"></i></div>
     <button class="mvbtn" id="mvR" type="button" aria-label="Move the decimal point right"><span>→</span>Point</button>
-    <div class="stepseg"><span class="sl">STEP</span>
+    <div class="stepseg adv-only"><span class="sl">STEP</span>
       <div class="seg" id="stepSeg" role="group" aria-label="Places to move">
         <button data-v="3" aria-pressed="true">3 places</button><button data-v="1" aria-pressed="false">1 place</button>
       </div>
@@ -430,6 +462,9 @@ function parse(str){
 
 /* ---------- Move-the-point state ---------- */
 var M={n:parse("0.0047"), e:0, step:3, unit:"A"};
+var BEG=store.get("el-eng-mode")!=="adv";
+function pname(e){ var p=pfx(e); return p?(p[2]||"no prefix"):"E"+e; }
+function plabel(e){ return BEG?pname(e):"E"+e; }
 var said="";
 $("unitSel").innerHTML=UNITS.map(function(u){return '<option value="'+u+'"'+(u===M.unit?" selected":"")+'>'+(u||"no unit")+'</option>'}).join("");
 
@@ -453,7 +488,8 @@ function renderNum(prevE){
     h+='<svg class="hops" width="'+(cols*cw)+'" height="'+fs+'" aria-hidden="true">'+svg+'</svg>';
   }
   h+='</span>';
-  h+='<span class="pow">× 10<sup>'+e+'</sup></span>'+(M.unit?'<span class="unitlbl">'+M.unit+'</span>':'');
+  if(BEG){ var Pb=pfx(e); h+='<span class="unitlbl"><span class="pfxl">'+(Pb?Pb[1]:"")+'</span>'+M.unit+'</span>'; }
+  else h+='<span class="pow">× 10<sup>'+e+'</sup></span>'+(M.unit?'<span class="unitlbl">'+M.unit+'</span>':'');
   $("numrow").innerHTML=h;
   if(prevE!=null){
     void $("strip").offsetWidth;
@@ -468,12 +504,29 @@ function render(prevE){
   renderNum(prevE);
   $("said").textContent=said;
   var pill=$("formPill"), isEng=(e%3===0&&mv>=1&&mv<1000), isSci=(e===sc);
-  if(isEng&&isSci){ pill.textContent="Engineering and scientific notation"; pill.className="pill good"; }
+  if(BEG){
+    if(isEng){ pill.textContent="Good: 1 to 999 in front"; pill.className="pill good"; }
+    else if(mv<1){ pill.textContent="Less than 1 in front: try Point →"; pill.className="pill warn"; }
+    else { pill.textContent="1,000 or more in front: try ← Point"; pill.className="pill warn"; }
+  }
+  else if(isEng&&isSci){ pill.textContent="Engineering and scientific notation"; pill.className="pill good"; }
   else if(isEng){ pill.textContent="Engineering notation"; pill.className="pill good"; }
   else if(isSci){ pill.textContent="Scientific notation (not engineering: "+e+" isn’t a multiple of 3)"; pill.className="pill warn"; }
   else if(e%3===0){ pill.textContent=(mv<1?"Power is a multiple of 3, but the number in front is under 1":"Power is a multiple of 3, but the number in front is 1,000 or more"); pill.className="pill warn"; }
   else { pill.textContent="Not engineering notation yet: "+e+" isn’t a multiple of 3"; pill.className="pill"; }
   var dec=width(n,0)<=24?commas(mant(n,0)):"too long to write out", Pe=pfx(en);
+  if(BEG){
+    $("liveForms").innerHTML=
+      '<tr><td>Regular</td><td class="v">'+dec+(u?" "+u:"")+'</td><td class="m">No prefix</td></tr>'+
+      '<tr><td>As shown</td><td class="v">'+(P?m+" "+P[1]+u:"—")+'</td><td class="m">'+(P?(P[1]?P[2]+" ("+P[1]+")":"no prefix"):"")+'</td></tr>'+
+      '<tr><td>Best prefix</td><td class="v">'+(Pe?mant(n,en)+" "+Pe[1]+u:"—")+'</td><td class="m">1 to 999 in front</td></tr>';
+    $("rdL").textContent="WITH PREFIX";
+    $("rdE").textContent=P?m+" "+P[1]+u:m;
+    $("rdP").textContent=(e!==0&&width(n,0)<=16)?"= "+commas(mant(n,0))+(u?" "+u:""):(e===0?"regular number":"");
+    $("mvL").disabled=!canMove(-1); $("mvR").disabled=!canMove(1);
+    return;
+  }
+  $("rdL").textContent="E NOTATION";
   $("liveForms").innerHTML=
     '<tr><td>Decimal</td><td class="v">'+dec+(u?" "+u:"")+'</td><td class="m">Point at E0</td></tr>'+
     '<tr><td>As shown</td><td class="v">'+eStr(n,e)+(u?" "+u:"")+'</td><td class="m">'+m+' × 10'+sup(e)+'</td></tr>'+
@@ -485,11 +538,11 @@ function render(prevE){
   $("mvL").disabled=!canMove(-1); $("mvR").disabled=!canMove(1);
 }
 /* dir +1 = point moves right (exponent down) */
-function canMove(dir){ var e2=M.e-dir*M.step; return e2>=MINE-3&&e2<=MAXE+3&&width(M.n,e2)<=22; }
+function canMove(dir){ var e2=M.e-dir*(BEG?3:M.step); if(BEG&&!pfx(e2)) return false; return e2>=MINE-3&&e2<=MAXE+3&&width(M.n,e2)<=22; }
 function move(dir){
   if(!canMove(dir)) return;
-  var pe=M.e; M.e-=dir*M.step;
-  var k=M.step, big=k===3?"1,000":"10";
+  var k=BEG?3:M.step, big=k===3?"1,000":"10", pe=M.e; M.e-=dir*k;
+  if(BEG){ said="Point moved 3 places "+(dir>0?"right":"left")+": the number got 1,000 times "+(dir>0?"bigger":"smaller")+", so the prefix stepped "+(dir>0?"down":"up")+" ("+pname(pe)+" → "+pname(M.e)+")."; render(pe); return; }
   said="Point moved "+k+(k===1?" place ":" places ")+(dir>0?"right":"left")+": the number got "+big+" times "+(dir>0?"bigger":"smaller")+", so the exponent went "+(dir>0?"down":"up")+" by "+k+" (E"+pe+" → E"+M.e+").";
   render(pe);
 }
@@ -499,7 +552,7 @@ document.addEventListener("keydown",function(ev){ if(S.view!=="move"||/INPUT|SEL
 
 function setNumber(n,unit){
   M.n=n; if(unit!=null){ M.unit=unit; $("unitSel").value=unit; }
-  M.e=width(n,0)<=22?0:engE(n); said="Press Point → or ← Point to move the decimal point.";
+  M.e=width(n,0)<=22?0:engE(n); if(BEG&&M.e%3) M.e=engE(n); said="Press Point → or ← Point to move the decimal point.";
   render(); renderLadder();
 }
 $("yourForm").addEventListener("submit",function(ev){
@@ -514,11 +567,12 @@ $("exChips").innerHTML=EX.map(function(x,i){return '<button type="button" data-i
 $("exChips").addEventListener("click",function(ev){ var b=ev.target.closest("button"); if(!b) return; var x=EX[+b.dataset.i]; $("yourIn").value=x[0]; $("yourErr").hidden=true; setNumber(parse(x[0]),x[1]); });
 
 /* ---------- Ladder ---------- */
+function means(e){ if(e===0) return "× 1"; var z=commas("1"+new Array(Math.abs(e)+1).join("0")); return (e>0?"× ":"÷ ")+z; }
 function renderLadder(){
-  var n=M.n, u=M.unit, best=engE(n), h='<tr><th>Prefix</th><th>Power</th><th>Your number on this rung</th></tr>';
+  var n=M.n, u=M.unit, best=engE(n), h='<tr><th>Prefix</th><th>'+(BEG?"Means":"Power")+'</th><th>Your number on this rung</th></tr>';
   PFX.forEach(function(p){
     var w=width(n,p[0]), v=w<=24?commas(mant(n,p[0])):"≈ "+eStr(n,best).replace(/E.*/,"")+"E"+(best-p[0]);
-    h+='<tr'+(p[0]===best?' class="best"':'')+'><td class="sym">'+(p[1]||"–")+'<small>'+(p[2]||"none")+'</small></td><td class="pw">E'+p[0]+'</td><td class="val">'+v+" "+p[1]+u+'</td></tr>';
+    h+='<tr'+(p[0]===best?' class="best"':'')+'><td class="sym">'+(p[1]||"–")+'<small>'+(p[2]||"none")+'</small></td><td class="pw">'+(BEG?means(p[0]):"E"+p[0])+'</td><td class="val">'+v+" "+p[1]+u+'</td></tr>';
   });
   $("ladder").innerHTML=h;
 }
@@ -543,13 +597,16 @@ var P={lvl:"basic", cur:null, done:false, right:0, tries:0};
 var DIG=["1","12","15","18","22","27","33","39","47","56","68","82","2","25","5","75","1","15","33","47"];
 function rnd(a){ return a[Math.floor(Math.random()*a.length)]; }
 function lvlE(){ return P.lvl==="basic"?[-6,-3,3,6]:[-12,-9,-6,-3,3,6,9,12,15]; }
+/* prefixes that are normal for each unit, so practice never asks for millifarads or millihertz */
+var ALLOW={F:[0,-6,-9,-12],Hz:[0,3,6,9,12],B:[0,3,6,9,12,15],"Ω":[0,3,6,9],V:[-6,-3,0,3],A:[-6,-3,0],W:[-3,0,3,6,9],H:[-6,-3,0],s:[-9,-6,-3,0]};
 var UNIT_BY_E={15:["B"],12:["B","Hz"],9:["Hz","B","Ω"],6:["Ω","Hz","W"],3:["Ω","V","Hz","W"],0:["V","A"],"-3":["A","V","H","s"],"-6":["F","A","s"],"-9":["F","s"],"-12":["F"]};
 function eOpts(sel){ var o=""; for(var e=MAXE;e>=MINE;e-=3) o+='<option value="'+e+'"'+(e===sel?" selected":"")+'>E'+e+'</option>'; return o; }
 function pOpts(sel){ return PFX.map(function(p){return '<option value="'+p[0]+'"'+(p[0]===sel?" selected":"")+'>'+(p[1]?p[1]+" ("+p[2]+")":"none")+'</option>'}).join(""); }
 function makeProblem(){
   var E=rnd(lvlE()), D=rnd(DIG), r=rnd([0,1,2]), n=norm(D,E+r-(D.length-1)), u=rnd(UNIT_BY_E[E]);
-  var types=["dec2eng","sci2eng","e2pfx","pfx2pfx","dec2pfx"];
+  var types=BEG?["dec2pfx","pfx2pfx","pfx2dec","dec2pfx","pfx2pfx"]:["dec2eng","sci2eng","e2pfx","pfx2pfx","dec2pfx"];
   var t=rnd(types);
+  if(t==="pfx2dec"){ if(width(n,0)>14) t="pfx2pfx"; else { var qq={n:n,t:t,E:E,u:u,T:0,from:E,sel:"fixed"}; qq.txt="Write <code>"+commas(mant(n,E))+" "+pfx(E)[1]+u+"</code> as a regular number, with no prefix."; return qq; } }
   if((t==="dec2eng"||t==="dec2pfx")&&width(n,0)>16) t="e2pfx";
   if(t==="sci2eng"&&top(n)%3===0) t="pfx2pfx";
   var q={n:n,t:t,E:E,u:u};
@@ -558,7 +615,7 @@ function makeProblem(){
   if(t==="e2pfx"){ q.txt="Write <code>"+eStr(n,E)+" "+u+"</code> using a prefix."; q.from=E; q.sel="p"; }
   if(t==="dec2pfx"){ q.txt="Write <code>"+commas(mant(n,0))+" "+u+"</code> using a prefix, with 1 to 999 in front."; q.from=0; q.sel="p"; }
   if(t==="pfx2pfx"){
-    var opts=lvlE().concat([0]).filter(function(x){ return x!==E && Math.abs(x-E)<=(P.lvl==="basic"?3:6) && width(n,x)<=14; });
+    var opts=lvlE().concat([0]).filter(function(x){ return x!==E && Math.abs(x-E)<=(P.lvl==="basic"?3:6) && width(n,x)<=14 && ALLOW[u].indexOf(x)>=0; });
     if(!opts.length) return makeProblem();
     var T=rnd(opts); q.T=T; q.from=E;
     q.txt="Change <code>"+commas(mant(n,E))+" "+pfx(E)[1]+u+"</code> to "+(pfx(T)[1]?pfx(T)[2]+" ("+pfx(T)[1]+u+")":"plain "+u)+".";
@@ -578,19 +635,20 @@ function walk(n,from,to){
   /* list each 3-place hop from exponent `from` to `to` */
   var out=[], e=from, dir=to<from?1:-1;
   if((from-to)%3!==0){ out.push("Move the point "+Math.abs(from-to)+" places "+(dir>0?"right":"left")+": <code>"+mant(n,from)+"</code> → <code>"+mant(n,to)+"</code>, E"+from+" → E"+to+"."); return out; }
-  while(e!==to){ var e2=e-dir*3; out.push("Move the point 3 places "+(dir>0?"right":"left")+": <code>"+mant(n,e)+"</code> → <code>"+mant(n,e2)+"</code> (E"+e+" → E"+e2+")"); e=e2; }
+  while(e!==to){ var e2=e-dir*3; out.push("Move the point 3 places "+(dir>0?"right":"left")+": <code>"+commas(mant(n,e))+"</code> → <code>"+commas(mant(n,e2))+"</code> ("+plabel(e)+" → "+plabel(e2)+")"); e=e2; }
   return out;
 }
 function explain(q){
-  var n=q.n, to=q.t==="pfx2pfx"?q.T:engE(n), steps=[];
+  var n=q.n, to=(q.t==="pfx2pfx"||q.t==="pfx2dec")?q.T:engE(n), steps=[];
   if(q.t==="sci2eng") steps.push("The exponent "+q.from+" isn’t a multiple of 3. Move the point until it is, keeping 1 to 999 in front.");
-  if(q.t==="pfx2pfx"){ var k=(q.from-q.T)/3; steps.push((k>0?"Going down the ladder ":"Going up the ladder ")+Math.abs(k)+(Math.abs(k)===1?" rung":" rungs")+" from "+(pfx(q.from)[2]||"plain")+" to "+(pfx(q.T)[2]||"plain")+": the number gets "+(Math.abs(k)===1?"1,000":"1,000,000")+" times "+(k>0?"bigger":"smaller")+"."); }
+  if(q.t==="pfx2pfx"||q.t==="pfx2dec"){ var k=(q.from-q.T)/3; steps.push((k>0?"Going down the ladder ":"Going up the ladder ")+Math.abs(k)+(Math.abs(k)===1?" rung":" rungs")+" from "+(pfx(q.from)[2]||"plain")+" to "+(pfx(q.T)[2]||"plain")+": the number gets "+(Math.abs(k)===1?"1,000":"1,000,000")+" times "+(k>0?"bigger":"smaller")+"."); }
   steps=steps.concat(walk(n,q.from,to));
-  if(q.t!=="pfx2pfx" && q.t!=="sci2eng" && q.t!=="dec2eng") steps.push("E"+to+" is "+(pfx(to)[1]?pfx(to)[2]+" ("+pfx(to)[1]+")":"no prefix")+": <code>"+mant(n,to)+" "+pfx(to)[1]+q.u+"</code>");
+  if(q.t==="dec2pfx"&&BEG) steps.push("That leaves 1 to 999 in front, so the prefix is "+(pfx(to)[1]?pfx(to)[2]+" ("+pfx(to)[1]+")":"none")+": <code>"+mant(n,to)+" "+pfx(to)[1]+q.u+"</code>");
+  else if(q.t!=="pfx2pfx" && q.t!=="pfx2dec" && q.t!=="sci2eng" && q.t!=="dec2eng") steps.push("E"+to+" is "+(pfx(to)[1]?pfx(to)[2]+" ("+pfx(to)[1]+")":"no prefix")+": <code>"+mant(n,to)+" "+pfx(to)[1]+q.u+"</code>");
   if(q.t==="dec2eng"||q.t==="sci2eng") steps.push("<code>"+mant(n,to)+"</code> is between 1 and 999, so stop: <code>"+eStr(n,to)+"</code>"+(pfx(to)?" = <code>"+mant(n,to)+" "+pfx(to)[1]+"</code>":""));
   return {to:to, html:"<ol>"+steps.map(function(s){return "<li>"+s+"</li>"}).join("")+"</ol>"};
 }
-function answerText(q,ex){ var to=ex.to; return q.sel==="e"?eStr(q.n,to):mant(q.n,to)+" "+(pfx(to)[1]||"")+q.u; }
+function answerText(q,ex){ var to=ex.to; return q.sel==="e"?eStr(q.n,to):commas(mant(q.n,to))+" "+(pfx(to)[1]||"")+q.u; }
 function check(){
   var q=P.cur, a=parse($("ansIn").value);
   if(!a){ $("pFb").hidden=false; $("pFb").className="fb no"; $("pFb").innerHTML='<b class="t">Type a number first, like 4.7 or 470.</b>'; return; }
@@ -611,13 +669,21 @@ $("ansForm").addEventListener("submit",function(e){ e.preventDefault(); check();
 $("nextBtn").addEventListener("click",newProblem);
 $("hintBtn").addEventListener("click",function(){
   var q=P.cur, h;
-  if(q.t==="pfx2pfx") h=(q.T<q.from?"Smaller prefix, bigger number: move the point 3 places right per rung.":"Bigger prefix, smaller number: move the point 3 places left per rung.");
-  else h="Move the point 3 places at a time until there’s 1 to 999 in front. Right moves take the exponent down, left moves take it up.";
+  if(q.t==="pfx2pfx"||q.t==="pfx2dec") h=(q.T<q.from?"Smaller prefix, bigger number: move the point 3 places right per rung.":"Bigger prefix, smaller number: move the point 3 places left per rung.");
+  else h=BEG?"Move the point 3 places at a time; each move is one prefix step. Stop when there’s 1 to 999 in front.":"Move the point 3 places at a time until there’s 1 to 999 in front. Right moves take the exponent down, left moves take it up.";
   $("pHint").hidden=false; $("pHint").textContent=h;
 });
 seg("lvlSeg",function(v){ P.lvl=v; newProblem(); });
 
+/* ---------- Beginner / Advanced ---------- */
+function setMode(v,init){
+  BEG=v==="beg"; store.set("el-eng-mode",v); mark("modeSeg",v); document.body.classList.toggle("beg",BEG);
+  if(!init){ if(BEG&&M.e%3) M.e=engE(M.n); said="Press Point → or ← Point to move the decimal point."; render(); renderLadder(); P.right=0; P.tries=0; newProblem(); $("tally").textContent=""; }
+}
+seg("modeSeg",function(v){ setMode(v,false); });
+
 /* ---------- Start ---------- */
+setMode(BEG?"beg":"adv",true);
 render(); renderLadder(); newProblem(); $("tally").textContent="";
 said="Press Point → or ← Point to move the decimal point."; $("said").textContent=said;
 var v0=store.get("el-eng-view"); setView(["move","ladder","practice"].indexOf(v0)>=0?v0:"move");

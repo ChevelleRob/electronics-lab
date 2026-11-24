@@ -5,6 +5,7 @@ Each tool has its own version number, shown in its header bar.
 
 ## Home page (`index.html`)
 
+- **v1.6** Engineering Notation card: v1.1, with Beginner and Advanced in its description
 - **v1.5** Added the Engineering Notation card (v1.0), before Ohm's Law
 - **v1.4** Simple Circuit card: v1.3; Ohm's Law card: v1.1
 - **v1.3** Added the Ohm's Law card (v1.0)
@@ -14,6 +15,7 @@ Each tool has its own version number, shown in its header bar.
 
 ## Engineering Notation (`eng-notation/`)
 
+- **v1.1** Beginner / Advanced switch at the top (Beginner by default, remembered on each device). Beginner covers only regular numbers and prefixes: a short prefix intro, the number shown with its prefix (4.7 mA) instead of a power of ten, a “Means” column (× 1,000) on the ladder, and practice that goes regular ↔ prefix and prefix ↔ prefix with steps named by prefix. Advanced is the v1.0 layout. Practice levels renamed Common (M, k, m, µ) and All (P to p); prefix-to-prefix problems stick to prefixes normal for the unit (no millifarads or millihertz)
 - **v1.0** First version. Intro with one number written four ways (decimal, scientific, engineering, prefix), what 4.7E-3 means, and Windows Calculator tips. Move the point: the decimal point slides 3 places (or 1 for scientific) with Point buttons in the bottom bar, and the exponent, E notation and prefix update, with a note on what each move did; type your own number (0.0047, 4.7E-3, 4.7m, 47u) and pick a unit. Prefix ladder from peta to pico with the number on every rung and the 1-to-999 rung highlighted, and where each prefix is used (terabytes yes, teravolts rarely). Practice: decimal or scientific to engineering, E notation or decimal to a prefix, and prefix to prefix, at Basic (M, k, m, µ) or Full (P to p), with worked steps
 
 ## Ohm's Law (`ohms-law/`)
