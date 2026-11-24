@@ -5,11 +5,16 @@ Each tool has its own version number, shown in its header bar.
 
 ## Home page (`index.html`)
 
+- **v1.5** Added the Engineering Notation card (v1.0), before Ohm's Law
 - **v1.4** Simple Circuit card: v1.3; Ohm's Law card: v1.1
 - **v1.3** Added the Ohm's Law card (v1.0)
 - **v1.2** Site icon in the browser tab (and on the home screen when saved), and a preview image when a link to this page is shared; cards updated to the new tool versions
 - **v1.1** Simple Circuit card: v1.1
 - **v1.0** First version: home page with the Simple Circuit card (v1.0)
+
+## Engineering Notation (`eng-notation/`)
+
+- **v1.0** First version. Intro with one number written four ways (decimal, scientific, engineering, prefix), what 4.7E-3 means, and Windows Calculator tips. Move the point: the decimal point slides 3 places (or 1 for scientific) with Point buttons in the bottom bar, and the exponent, E notation and prefix update, with a note on what each move did; type your own number (0.0047, 4.7E-3, 4.7m, 47u) and pick a unit. Prefix ladder from peta to pico with the number on every rung and the 1-to-999 rung highlighted, and where each prefix is used (terabytes yes, teravolts rarely). Practice: decimal or scientific to engineering, E notation or decimal to a prefix, and prefix to prefix, at Basic (M, k, m, µ) or Full (P to p), with worked steps
 
 ## Ohm's Law (`ohms-law/`)
 

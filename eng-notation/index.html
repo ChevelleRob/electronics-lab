@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script>/* Theme chosen with the header button (Auto / Light / Dark), shared by every Electronics Lab and PLC Lab page */try{var t=localStorage.getItem("pl-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+<title>Electronics Lab: Engineering notation</title>
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../assets/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Electronics Lab">
+<meta property="og:title" content="Electronics Lab: Engineering notation">
+<meta property="og:description" content="Move the decimal point 3 places at a time and watch the power of ten and the prefix change, see a number on every rung of the prefix ladder (P to p), then practice.">
+<meta property="og:image" content="https://chevellerob.github.io/electronics-lab/assets/social-preview.png">
+<meta property="og:image:width" content="1280">
+<meta property="og:image:height" content="640">
+<meta property="og:image:alt" content="Electronics Lab: practice tools, with an example diagram">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="description" content="Engineering notation, E notation and metric prefixes from peta to pico, with practice.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  color-scheme: light;
+  --bg:#E2E4DF; --surface:#F3F4F1; --surface2:#E9EBE6; --ink:#1D272F; --muted:#56626C;
+  --line:#BCC1BA; --wire:#8A939A; --live:#178F4C; --liveglow:rgba(23,143,76,.22);
+  --amber:#B97C00; --red:#C13D2B; --panel:#2A3640; --onpanel:#EEF1F2;
+  --c1:#1F5FA8; --c1bg:#DCE7F5;
+  --eflow:#1E6FE0; --cflow:#E07000;
+  --wred:#C8372A; --wblk:#2B3136; --metal:#A3ABB1; --metal2:#C9CED2; --glass:rgba(255,255,255,.55);
+  --psbody:#CDD2CC; --fan:#3D7FB8; --smoke:#7D858B;
+  --sans:"Barlow", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --mono:"JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme: dark;
+    --bg:#141A1F; --surface:#1D252C; --surface2:#242E36; --ink:#E5EAED; --muted:#9AA7B1;
+    --line:#34414B; --wire:#5D6A74; --live:#3BD681; --liveglow:rgba(59,214,129,.22);
+    --amber:#F0B33A; --red:#F27360; --panel:#0F1418; --onpanel:#E5EAED;
+    --c1:#8DB8F0; --c1bg:#1D3150;
+    --eflow:#6CB4FF; --cflow:#FFAA45;
+    --wred:#D9493B; --wblk:#05080A; --metal:#7E888F; --metal2:#9AA3A9; --glass:rgba(255,255,255,.10);
+    --psbody:#323D46; --fan:#6FA8DA; --smoke:#A9B1B7;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme: dark;
+  --bg:#141A1F; --surface:#1D252C; --surface2:#242E36; --ink:#E5EAED; --muted:#9AA7B1;
+  --line:#34414B; --wire:#5D6A74; --live:#3BD681; --liveglow:rgba(59,214,129,.22);
+  --amber:#F0B33A; --red:#F27360; --panel:#0F1418; --onpanel:#E5EAED;
+  --c1:#8DB8F0; --c1bg:#1D3150;
+  --eflow:#6CB4FF; --cflow:#FFAA45;
+  --wred:#D9493B; --wblk:#05080A; --metal:#7E888F; --metal2:#9AA3A9; --glass:rgba(255,255,255,.10);
+  --psbody:#323D46; --fan:#6FA8DA; --smoke:#A9B1B7;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.45;-webkit-text-size-adjust:100%;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--panel)}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--c1);outline-offset:2px}
+.wrap{max-width:720px;margin:0 auto;padding:0 16px 48px}
+body.has-bar .wrap{padding-bottom:calc(150px + env(safe-area-inset-bottom,0px))}
+
+/* Header */
+header.top{background:var(--panel);color:var(--onpanel);position:sticky;top:env(safe-area-inset-top,0px);z-index:5}
+.top .inner{max-width:720px;margin:0 auto;padding:12px 16px 10px}
+.brand{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.brand h1{margin:0;font-size:22px;font-weight:700;letter-spacing:.01em}
+.brand h1 a{color:inherit;text-decoration:none;display:inline-flex;align-items:baseline;gap:5px;padding:4px 0}
+.brand h1 a::before{content:"\2039";opacity:.6;font-weight:600}
+.brand h1 a:hover{text-decoration:underline;text-underline-offset:3px}
+.brand span{font-size:14px;opacity:.75}
+.brand .ver{margin-left:auto;font-family:var(--mono);font-size:12px;opacity:.6}
+
+h2{font-size:21px;margin:26px 0 4px;font-weight:700}
+h3{font-size:17px;margin:18px 0 6px;font-weight:700}
+p{margin:6px 0}
+.muted{color:var(--muted)}
+.intro{margin-top:16px}
+.lbl{font-size:14px;color:var(--muted);font-weight:500;margin:12px 0 6px}
+.seg{display:flex;gap:0;border:1.5px solid var(--line);border-radius:8px;overflow:hidden;background:var(--surface)}
+.seg button{flex:1;border:0;background:transparent;padding:9px 6px;font-weight:600;cursor:pointer;border-right:1.5px solid var(--line);min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.seg button:last-child{border-right:0}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.pick{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:0 12px}
+.pick .full{grid-column:1 / -1}
+
+/* Diagrams */
+.diag{background:var(--surface);border:1.5px solid var(--line);border-radius:10px;margin-top:14px;padding:6px 4px}
+.diag svg{display:block;width:100%;max-width:560px;margin:0 auto;height:auto}
+.diag text{font-family:var(--sans);fill:var(--ink)}
+.diag .sm{font-size:10px;font-weight:700;letter-spacing:.06em;fill:var(--muted)}
+.diag .mono{font-family:var(--mono)}
+.wr{fill:none;stroke-width:6;stroke-linecap:round;stroke-linejoin:round}
+.wr.red{stroke:var(--wred)} .wr.blk{stroke:var(--wblk)}
+.flow,.flowbg{fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:2 10}
+.flow{stroke:var(--eflow);stroke-width:3.4}
+.flowbg{stroke:var(--surface);stroke-width:7}
+body.conv .flow{stroke:var(--cflow)}
+.sch .flow,.sch .flowbg{stroke-dasharray:2 9}
+.sch .ln{fill:none;stroke:var(--ink);stroke-width:2.2;stroke-linecap:round}
+.sch .sym{fill:var(--surface);stroke:var(--ink);stroke-width:2.2}
+.sch .sym.dead{stroke:var(--red);stroke-dasharray:5 4}
+.sch .lab{font-size:13px;font-weight:700}
+.sch .val{font-family:var(--mono);font-size:12px;fill:var(--c1)}
+.swhit{cursor:pointer}
+.cap{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;margin-top:10px}
+.legend{display:inline-flex;align-items:center;gap:8px;font-size:15px}
+.legend i{display:inline-block;width:30px;height:4px;background:repeating-linear-gradient(90deg,var(--eflow) 0 4px,transparent 4px 10px);border-radius:2px}
+body.conv .legend i{background:repeating-linear-gradient(90deg,var(--cflow) 0 4px,transparent 4px 10px)}
+.pill{display:inline-block;font-weight:700;font-size:15px;border-radius:6px;padding:3px 10px;background:var(--surface2);border:1.5px solid var(--line)}
+.pill.good{border-color:var(--live);color:var(--live)}
+.pill.warn{border-color:var(--amber);color:var(--amber)}
+.pill.bad{border-color:var(--red);color:var(--red);background:color-mix(in srgb,var(--red) 10%,var(--surface))}
+
+.status{width:100%;border-collapse:collapse;margin-top:12px;background:var(--surface);border:1.5px solid var(--line);border-radius:10px;overflow:hidden;font-size:15px}
+.status td{padding:7px 10px;border-top:1px solid var(--line);vertical-align:top}
+.status tr:first-child td{border-top:0}
+.status td:first-child{font-weight:600;white-space:nowrap;width:1%}
+.status td.v{font-family:var(--mono);font-weight:700;white-space:nowrap;width:1%}
+.status td.m{color:var(--muted);font-size:14px}
+
+.note{margin-top:14px;padding:12px 14px;border-left:4px solid var(--amber);background:var(--surface);border-radius:0 8px 8px 0}
+.note p{margin:4px 0}
+.note ul{margin:6px 0;padding-left:20px}
+.try{margin-top:12px;padding:12px 14px;border-left:4px solid var(--live);background:var(--surface);border-radius:0 8px 8px 0}
+.try p{margin:4px 0}
+.fixin{margin-top:10px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+
+/* Quiz */
+.q{margin-top:12px;padding:12px 14px;background:var(--surface);border:1.5px solid var(--line);border-radius:10px}
+.q p{margin:0 0 8px;font-weight:600}
+.opts{display:grid;gap:6px}
+.opts button{text-align:left;background:var(--surface2);border:1.5px solid var(--line);border-radius:8px;padding:9px 12px;cursor:pointer;font-size:16px}
+.opts button:disabled{cursor:default}
+.opts button.right{border-color:var(--live);background:color-mix(in srgb,var(--live) 14%,var(--surface))}
+.opts button.wrong{border-color:var(--red);background:color-mix(in srgb,var(--red) 12%,var(--surface))}
+.exp{margin-top:8px;font-size:15px;color:var(--muted)}
+.score{margin-top:12px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;font-weight:600}
+.btn{background:var(--surface);border:1.5px solid var(--line);border-radius:8px;padding:8px 14px;font-weight:600;cursor:pointer}
+
+/* Heat: vertical bar graph next to the readings, with a line at the damage threshold */
+.heatv{grid-area:heat;display:flex;flex-direction:column;align-items:center;gap:3px}
+.heatv .tube{position:relative;width:14px;height:40px;border-radius:7px;background:#1A2228;box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.3)}
+.heatv .tube b{position:absolute;left:2px;right:2px;bottom:2px;height:0;border-radius:5px;background:var(--live);transition:background .2s}
+.heatv .tube b.warm{background:#F0B33A}
+.heatv .tube b.hot{background:#F27360}
+.heatv .tube i{position:absolute;left:-5px;right:-5px;height:2px;border-radius:1px;background:#EEF1F2}
+.heatv small{font-size:9px;font-weight:700;letter-spacing:.06em;opacity:.8}
+/* Bottom control bar */
+.bar{position:fixed;left:0;right:0;bottom:0;z-index:6;background:var(--panel);color:var(--onpanel);padding:10px 14px calc(10px + env(safe-area-inset-bottom,0px));box-shadow:0 -3px 12px rgba(0,0,0,.25)}
+.bar .in{max-width:720px;margin:0 auto;display:grid;grid-template-columns:auto auto minmax(0,1fr) auto;grid-template-areas:"meter heat . sw" "row2 row2 row2 row2";gap:8px 10px;align-items:center}
+.row2{grid-area:row2;display:flex;align-items:center;gap:10px;min-width:0}
+.switch{grid-area:sw;display:flex;align-items:center;gap:10px;background:transparent;border:0;padding:0;cursor:pointer;text-align:right;color:var(--onpanel)}
+.knob{width:44px;height:44px;border-radius:50%;background:#1A2228;position:relative;flex:none;box-shadow:inset 0 0 0 3px #5D6A74}
+.knob::after{content:"";position:absolute;left:50%;top:6px;width:6px;height:32px;margin-left:-3px;border-radius:3px;background:var(--onpanel);transform:rotate(-40deg);transform-origin:50% 16px;transition:transform .15s}
+.switch[aria-pressed="true"] .knob::after{transform:rotate(40deg)}
+.switch[aria-pressed="true"] .knob{box-shadow:inset 0 0 0 3px var(--live)}
+.switch b{display:block;font-size:14px}
+.switch small{display:block;font-family:var(--mono);font-size:11px;opacity:.8}
+.meter{grid-area:meter;justify-self:start;display:flex;flex-direction:column;align-items:flex-end;background:#0B140F;border-radius:6px;padding:4px 10px;font-family:var(--mono);line-height:1.2;min-width:0}
+.meter .vv{color:#46E08A;font-size:17px;font-weight:700}
+.meter .aa{color:#FFB347;font-size:13px;font-weight:700}
+.meter small{color:#9AA7B1;font-size:10px;font-family:var(--sans);font-weight:600;letter-spacing:.05em}
+.fix{flex:none;background:var(--amber);color:#1D1400;border:0;border-radius:8px;padding:8px 10px;font-weight:700;font-size:14px;cursor:pointer;line-height:1.15;max-width:110px}
+.supply{flex:1;display:flex;align-items:center;gap:8px;min-width:0}
+.supply .sl{font-size:12px;font-weight:700;letter-spacing:.05em;opacity:.8;flex:none}
+.supply input{flex:1;min-width:0;height:32px;accent-color:var(--live)}
+.step{flex:none;width:38px;height:38px;border-radius:50%;border:1.5px solid rgba(255,255,255,.3);background:transparent;color:var(--onpanel);font-size:20px;font-weight:700;cursor:pointer;line-height:1;padding:0}
+@media (min-width:640px){
+  .bar .in{grid-template-columns:auto auto minmax(0,1fr) auto;grid-template-areas:"meter heat row2 sw";column-gap:14px}
+}
+
+[hidden]{display:none!important}
+@media (prefers-reduced-motion: reduce){*{transition:none!important}}
+
+/* Theme button in the header: Auto / Light / Dark */
+.themebtn{display:inline-flex;align-items:center;gap:5px;margin-left:10px;align-self:center;background:transparent;border:1.5px solid rgba(255,255,255,.28);color:var(--onpanel);border-radius:6px;padding:3px 8px;font:inherit;font-size:12px;font-weight:600;cursor:pointer;line-height:1.2}
+.themebtn svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round}
+@media (max-width:420px){ .brand > span:not(.ver){order:5;flex-basis:100%;margin-top:-4px} }
+@media (max-width:400px){ .xs{display:none} }
+@media (max-width:360px){ .themebtn span{display:none} .themebtn{padding:4px 6px;margin-left:8px} .brand{gap:8px} }
+/* ---------- Engineering notation tool ---------- */
+body.has-bar .wrap{padding-bottom:calc(150px + env(safe-area-inset-bottom,0px))}
+.forms{width:100%;border-collapse:collapse;margin-top:12px;background:var(--surface);border:1.5px solid var(--line);border-radius:10px;overflow:hidden;font-size:15px}
+.forms td{padding:7px 10px;border-top:1px solid var(--line);vertical-align:top}
+.forms tr:first-child td{border-top:0}
+.forms td:first-child{font-weight:600;white-space:nowrap;width:1%}
+.forms td.v{font-family:var(--mono);font-weight:700;white-space:nowrap}
+#liveBox{overflow-x:auto;margin-top:12px;border:1.5px solid var(--line);border-radius:10px}
+#liveBox .forms{margin-top:0;border:0;border-radius:0}
+#liveForms td:first-child{position:sticky;left:0;background:var(--surface);z-index:1}
+@media (max-width:420px){ .forms td.m{display:none} }
+.forms td.m{color:var(--muted);font-size:14px}
+.views{margin-top:18px}
+.yours{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:8px}
+.yours input{flex:1 1 150px;min-width:0;font:inherit;font-family:var(--mono);padding:9px 10px;border:1.5px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink)}
+select{font:inherit;padding:9px 6px;border:1.5px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink);flex:none}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.chips button{font:inherit;font-family:var(--mono);font-size:14px;font-weight:600;color:var(--c1);background:var(--c1bg);border:0;border-radius:6px;padding:4px 9px;cursor:pointer}
+.err{color:var(--red);font-weight:600;margin-top:6px}
+/* The number with a moving decimal point */
+.mover{background:var(--surface);border:1.5px solid var(--line);border-radius:10px;margin-top:14px;padding:14px 8px 10px;overflow:hidden}
+.numrow{display:flex;justify-content:center;align-items:flex-end;font-family:var(--mono);font-weight:700;line-height:1;white-space:nowrap}
+.strip{position:relative;display:inline-flex;padding-top:.75em}
+.col{display:inline-block;text-align:center;transition:opacity .35s}
+.col.hide{opacity:0}
+.dot{position:absolute;bottom:.02em;width:.2em;height:.2em;margin-left:-.1em;border-radius:50%;background:var(--red);transition:left .5s cubic-bezier(.4,1.4,.6,1),opacity .3s}
+.dot.ghost{opacity:.35}
+.hops{position:absolute;left:0;top:0;overflow:visible;pointer-events:none}
+.hops path{fill:none;stroke:var(--red);stroke-width:2;stroke-linecap:round;stroke-dasharray:4 4;animation:hop 1.6s ease-out forwards}
+@keyframes hop{0%{opacity:0}15%{opacity:1}70%{opacity:1}100%{opacity:0}}
+@media (prefers-reduced-motion: reduce){ .dot,.col{transition:none} .hops path{animation:none;opacity:0} }
+.pow{margin-left:.25em;font-size:max(16px,.5em);color:var(--muted);padding-bottom:.08em}
+.pow sup{font-size:.7em;color:var(--c1)}
+.unitlbl{margin-left:.2em;font-size:max(16px,.5em);padding-bottom:.08em}
+.said{margin:10px 6px 0;font-size:15px;color:var(--muted);text-align:center;min-height:1.4em}
+.pill{display:inline-block;font-weight:700;font-size:15px;border-radius:6px;padding:3px 10px;background:var(--surface2);border:1.5px solid var(--line)}
+.pill.good{border-color:var(--live);color:var(--live)}
+.pill.warn{border-color:var(--amber);color:var(--amber)}
+.cap{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;margin-top:10px}
+/* Ladder */
+.tblbox{overflow-x:auto;margin-top:10px;border:1.5px solid var(--line);border-radius:10px;max-width:100%}
+.lad{border-collapse:collapse;width:100%;font-size:15px;background:var(--surface)}
+.lad th,.lad td{padding:7px 10px;border-top:1px solid var(--line);text-align:left;white-space:nowrap}
+.lad th{background:var(--surface2);font-size:13px;color:var(--muted);border-top:0;position:sticky;top:0;z-index:2}
+.lad tr>*:first-child{position:sticky;left:0;z-index:1;background:var(--surface)}
+.lad tr>th:first-child{background:var(--surface2);z-index:3}
+.lad td.sym{font-family:var(--mono);font-weight:700;font-size:17px}
+.lad td.sym small{font-family:var(--sans);font-weight:500;font-size:13px;color:var(--muted);margin-left:6px}
+.lad td.val{font-family:var(--mono);font-weight:700}
+.lad td.pw{font-family:var(--mono);color:var(--muted)}
+.lad tr.best td{background:color-mix(in srgb,var(--live) 13%,var(--surface))}
+.lad tr.best td:first-child{box-shadow:inset 4px 0 0 var(--live)}
+.lad td.where{white-space:normal;min-width:16em;font-size:14px}
+.rule{display:grid;grid-template-columns:auto 1fr;gap:4px 10px;margin-top:10px;font-size:15px;align-items:center}
+.rule > b{font-family:var(--mono);font-size:18px}
+/* Practice */
+.prob{background:var(--surface);border:1.5px solid var(--line);border-radius:10px;padding:14px;margin-top:12px}
+.ptext{font-size:18px;font-weight:600;margin:0}
+.ptext code{font-family:var(--mono);color:var(--c1);white-space:nowrap}
+.ansrow{display:flex;gap:8px;margin-top:12px;align-items:center;flex-wrap:wrap}
+.ansrow input{flex:1 1 120px;min-width:0;font:inherit;font-family:var(--mono);padding:9px 10px;border:1.5px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink)}
+.ansrow .fixu{font-family:var(--mono);font-weight:700;font-size:18px}
+.pbtns{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.btn.primary{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.fb{margin-top:12px;padding:10px 12px;border-radius:8px;border:1.5px solid var(--line);background:var(--surface2)}
+.fb.ok{border-color:var(--live)} .fb.no{border-color:var(--red)}
+.fb b.t{display:block;font-size:17px}
+.fb.ok b.t{color:var(--live)} .fb.no b.t{color:var(--red)}
+.fb ol{margin:6px 0 0;padding-left:22px} .fb li{margin:4px 0}
+.fb code,.note code,.try code,p code,li code{font-family:var(--mono);font-size:.92em;color:var(--c1);white-space:nowrap}
+.tally{font-weight:600;margin-top:12px}
+/* Bottom bar */
+.bar .in{grid-template-columns:auto minmax(0,1fr) auto;grid-template-areas:"lt rd rt" "st st st"}
+.mvbtn{display:flex;flex-direction:column;align-items:center;gap:2px;background:#1A2228;border:1.5px solid rgba(255,255,255,.3);color:var(--onpanel);border-radius:10px;padding:6px 12px;cursor:pointer;font-weight:700;font-size:14px;line-height:1.1}
+.mvbtn span{font-size:22px}
+.mvbtn:disabled{opacity:.35;cursor:default}
+#mvL{grid-area:lt} #mvR{grid-area:rt}
+.rdout{grid-area:rd;justify-self:center;text-align:center;background:#0B140F;border-radius:6px;padding:4px 12px;font-family:var(--mono);min-width:0;max-width:100%;overflow:hidden}
+.rdout small{display:block;color:#9AA7B1;font-size:10px;font-family:var(--sans);font-weight:600;letter-spacing:.05em}
+.rdout b{display:block;color:#46E08A;font-size:18px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rdout i{display:block;color:#FFB347;font-size:13px;font-style:normal;font-weight:700}
+.stepseg{grid-area:st;display:flex;align-items:center;gap:8px}
+.stepseg .sl{font-size:12px;font-weight:700;letter-spacing:.05em;opacity:.8;flex:none}
+.stepseg .seg{flex:1;background:transparent;border-color:rgba(255,255,255,.3)}
+.stepseg .seg button{color:var(--onpanel);border-color:rgba(255,255,255,.3);padding:6px}
+.stepseg .seg button[aria-pressed="true"]{background:var(--onpanel);color:var(--panel)}
+@media (min-width:640px){ .bar .in{grid-template-columns:auto minmax(0,1fr) auto minmax(0,1.2fr);grid-template-areas:"lt rd rt st"} }
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="inner">
+    <div class="brand"><h1><a href="../" title="Back to Electronics Lab home">Electronics Lab</a></h1><span>Engineering notation</span><span class="ver">v1.0</span><button class="themebtn" id="themeBtn" type="button"></button></div>
+  </div>
+</header>
+
+<main class="wrap">
+  <p class="intro">Electronics numbers run from tiny to huge: a capacitor might be 0.000000000022 farads, a resistor 4,700,000 ohms. <b>Engineering notation</b> writes them as a number from 1 to 999 times a power of ten that is a <b>multiple of 3</b>. Every multiple of 3 has a prefix, so the power of ten turns straight into a letter like k, m or µ.</p>
+  <table class="forms" aria-label="One number written four ways">
+    <tr><td>Decimal</td><td class="v">0.0047 A</td><td class="m">Every zero written out</td></tr>
+    <tr><td>Scientific</td><td class="v">4.7E-3 A</td><td class="m">One digit before the point. 4.7 × 10⁻³</td></tr>
+    <tr><td>Engineering</td><td class="v">4.7E-3 A</td><td class="m">1 to 999 before the point, power a multiple of 3</td></tr>
+    <tr><td>Prefix</td><td class="v">4.7 mA</td><td class="m">E-3 is milli (m)</td></tr>
+  </table>
+  <p class="muted" style="font-size:15px;margin-top:8px">Here scientific and engineering look the same. Try 0.000047: scientific is 4.7E-5, but engineering is 47E-6 = 47 µ.</p>
+  <div class="note">
+    <p><b>What does 4.7E-3 mean?</b> “E” means “times ten to the power of”. <code>4.7E-3</code> is 4.7 × 10⁻³. Calculators, spreadsheets and computers write it this way because they can’t show a small raised number.</p>
+    <p><b>Windows Calculator:</b> switch to <b>Scientific</b> mode. To type 4.7E-3, enter <code>4.7</code>, press <b>exp</b>, enter <code>3</code>, then press <b>+/−</b> to make it negative. The <b>F-E</b> button switches the display between ordinary and E notation. It has no engineering mode, so you move the exponent to a multiple of 3 yourself, which is exactly what this tool practices.</p>
+  </div>
+
+  <div class="seg views" id="viewSeg" role="group" aria-label="View">
+    <button data-v="move" aria-pressed="true">Move point</button><button data-v="ladder" aria-pressed="false">Ladder</button><button data-v="practice" aria-pressed="false">Practice</button>
+  </div>
+
+  <div id="yourBox">
+    <div class="lbl">Your number</div>
+    <form class="yours" id="yourForm" autocomplete="off">
+      <input id="yourIn" inputmode="text" aria-label="Type a number, like 0.0047, 4.7E-3 or 4.7m" placeholder="0.0047, 4.7E-3 or 4.7m">
+      <select id="unitSel" aria-label="Unit"></select>
+      <button class="btn" type="submit">Show it</button>
+    </form>
+    <div class="err" id="yourErr" hidden></div>
+    <div class="chips" id="exChips" aria-label="Examples"></div>
+  </div>
+
+  <!-- ===== Move the point ===== -->
+  <section id="v-move">
+    <div class="mover" id="mover" aria-live="polite">
+      <div class="numrow" id="numrow"></div>
+      <p class="said" id="said"></p>
+    </div>
+    <div class="cap"><span class="pill" id="formPill"></span></div>
+    <div id="liveBox"><table class="forms" id="liveForms" aria-label="Your number written every way"></table></div>
+    <div class="try">
+      <p><b>Try this:</b> start with 0.0047 A. Press <b>Point →</b> once. The point jumps 3 places right, the number gets 1,000 times bigger, and the power of ten drops by 3 to balance it: 4.7E-3 A, which is 4.7 mA.</p>
+      <p>Switch the step to <b>1 place</b> and move until one digit sits in front of the point. That’s scientific notation. Then go back to 3 places and find engineering notation.</p>
+    </div>
+    <div class="note">
+      <p><b>The balancing rule</b></p>
+      <p>Moving the point <b>right</b> makes the number in front bigger, so the exponent goes <b>down</b> by the same number of places. Moving it <b>left</b> makes the number smaller, so the exponent goes <b>up</b>. The value never changes, only how it’s written.</p>
+    </div>
+  </section>
+
+  <!-- ===== Prefix ladder ===== -->
+  <section id="v-ladder" hidden>
+    <h2>The prefix ladder</h2>
+    <p>Each rung is 1,000 times the one below it. Your number is shown on every rung; the green rung is the one that gives 1 to 999 in front, the usual way to write it.</p>
+    <div class="rule">
+      <b>↓</b><span>Step <b>down</b> to a smaller prefix: the number gets <b>1,000 times bigger</b> (point moves 3 right).</span>
+      <b>↑</b><span>Step <b>up</b> to a bigger prefix: the number gets <b>1,000 times smaller</b> (point moves 3 left).</span>
+    </div>
+    <div class="tblbox"><table class="lad" id="ladder"></table></div>
+    <h3>Where you’ll see each prefix</h3>
+    <div class="tblbox"><table class="lad">
+      <tr><th>Prefix</th><th>Where you’ll see it</th></tr>
+      <tr><td class="sym">P<small>peta</small></td><td class="where">Petabytes of storage in large data centers. Not used for circuit values.</td></tr>
+      <tr><td class="sym">T<small>tera</small></td><td class="where">Terabytes on hard drives and SSDs; terahertz in research labs. Teravolts and teraohms are rare.</td></tr>
+      <tr><td class="sym">G<small>giga</small></td><td class="where">Gigabytes, and gigahertz for computer processors and Wi-Fi (2.4 GHz). Gigohms on insulation testers.</td></tr>
+      <tr><td class="sym">M<small>mega</small></td><td class="where">Megohm resistors, megahertz radio stations, megawatts at power plants.</td></tr>
+      <tr><td class="sym">k<small>kilo</small></td><td class="where">Kilohm resistors (the most common), kilohertz audio, kilovolts on power lines, kilowatts.</td></tr>
+      <tr><td class="sym">–<small>none</small></td><td class="where">Plain volts, amps, ohms: batteries, bench supplies, small resistors.</td></tr>
+      <tr><td class="sym">m<small>milli</small></td><td class="where">Milliamps through LEDs, millivolts from sensors, millihenries, milliseconds.</td></tr>
+      <tr><td class="sym">µ<small>micro</small></td><td class="where">Microfarad capacitors, microamps, microseconds. Often typed as “u” (uF) when µ isn’t on the keyboard.</td></tr>
+      <tr><td class="sym">n<small>nano</small></td><td class="where">Nanofarad capacitors, nanoseconds in fast digital circuits.</td></tr>
+      <tr><td class="sym">p<small>pico</small></td><td class="where">Picofarad capacitors (small ceramic ones). Smaller prefixes, like femto (f, E-15), are mostly used in science labs.</td></tr>
+    </table></div>
+  </section>
+
+  <!-- ===== Practice ===== -->
+  <section id="v-practice" hidden>
+    <h2>Practice</h2>
+    <p>Rewrite each number the way it asks. Engineering notation means 1 to 999 in front and a power of ten that’s a multiple of 3. Type <b>u</b> if you can’t type µ.</p>
+    <div class="lbl">Level</div>
+    <div class="seg" id="lvlSeg" role="group" aria-label="Level">
+      <button data-v="basic" aria-pressed="true">Basic: M, k, m, µ</button><button data-v="full" aria-pressed="false">Full: P to p</button>
+    </div>
+    <div class="prob">
+      <p class="ptext" id="pText"></p>
+      <form class="ansrow" id="ansForm" autocomplete="off">
+        <input id="ansIn" inputmode="decimal" placeholder="Your answer" aria-label="Your answer">
+        <select id="ansSel" aria-label="Exponent or prefix"></select>
+        <span class="fixu" id="ansFix"></span>
+      </form>
+      <div class="pbtns">
+        <button class="btn primary" type="submit" form="ansForm" id="chkBtn">Check</button>
+        <button class="btn" type="button" id="hintBtn">Hint</button>
+        <button class="btn" type="button" id="nextBtn">Next problem</button>
+      </div>
+      <div id="pHint" class="muted" hidden style="margin-top:10px"></div>
+      <div id="pFb" hidden></div>
+    </div>
+    <p class="tally" id="tally"></p>
+  </section>
+</main>
+
+<div class="bar" id="ctlBar">
+  <div class="in">
+    <button class="mvbtn" id="mvL" type="button" aria-label="Move the decimal point left"><span>←</span>Point</button>
+    <div class="rdout" aria-live="off"><small>E NOTATION</small><b id="rdE"></b><i id="rdP"></i></div>
+    <button class="mvbtn" id="mvR" type="button" aria-label="Move the decimal point right"><span>→</span>Point</button>
+    <div class="stepseg"><span class="sl">STEP</span>
+      <div class="seg" id="stepSeg" role="group" aria-label="Places to move">
+        <button data-v="3" aria-pressed="true">3 places</button><button data-v="1" aria-pressed="false">1 place</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+"use strict";
+var store={get:function(k){try{return localStorage.getItem(k)}catch(e){return null}},set:function(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
+function $(id){return document.getElementById(id)}
+
+/* ---------- Prefixes ---------- */
+var PFX=[[15,"P","peta"],[12,"T","tera"],[9,"G","giga"],[6,"M","mega"],[3,"k","kilo"],[0,"",""],[-3,"m","milli"],[-6,"µ","micro"],[-9,"n","nano"],[-12,"p","pico"]];
+function pfx(e){ for(var i=0;i<PFX.length;i++) if(PFX[i][0]===e) return PFX[i]; return null; }
+var UNITS=["","A","V","Ω","F","H","Hz","W","s","B"];
+var MINE=-12, MAXE=15;
+
+/* ---------- Exact decimal numbers: value = D × 10^s (D = digits, no leading or trailing zeros) ---------- */
+function norm(D,s){ D=D.replace(/^0+/,""); if(!D) return null; var m=D.match(/0+$/); if(m){ s+=m[0].length; D=D.slice(0,D.length-m[0].length); } return {D:D,s:s}; }
+function top(n){ return n.s+n.D.length-1; }
+function dig(n,p){ var k=top(n)-p; return (k>=0&&k<n.D.length)?n.D.charAt(k):"0"; }
+function mant(n,e){ var hi=Math.max(top(n),e), lo=Math.min(n.s,e), o=""; for(var p=hi;p>=lo;p--){ o+=dig(n,p); if(p===e&&p!==lo) o+="."; } return o; }
+function commas(s){ var p=s.split("."); p[0]=p[0].replace(/\B(?=(\d{3})+(?!\d))/g,","); return p.join("."); }
+function engE(n){ return Math.floor(top(n)/3)*3; }
+function same(a,b){ return a&&b&&a.D===b.D&&a.s===b.s; }
+function eStr(n,e){ return mant(n,e)+"E"+e; }
+function sup(e){ return String(e).replace(/-/g,"⁻").replace(/\d/g,function(d){return "⁰¹²³⁴⁵⁶⁷⁸⁹".charAt(+d)}); }
+function width(n,e){ return Math.max(top(n),e)-Math.min(n.s,e)+1; }
+/* Parse "0.0047", "4,700", "4.7E-3", "4.7 x 10^-3", "4.7m", "47u" */
+function parse(str){
+  str=String(str).replace(/[,\s]/g,"").replace(/[−–]/g,"-").replace(/[µμ]/g,"u");
+  var m=str.match(/^(\d+\.?\d*|\.\d+)(?:[eE]([+-]?\d+)|[x×*]10\^?([+-]?\d+))?([PTGMkKmunp])?$/);
+  if(!m) return null;
+  var parts=m[1].split("."), frac=parts[1]||"", D=(parts[0]||"")+frac, s=-frac.length;
+  if(m[2]) s+=parseInt(m[2],10); if(m[3]) s+=parseInt(m[3],10);
+  if(m[4]){ var L=m[4]==="u"?"µ":m[4]==="K"?"k":m[4]; for(var i=0;i<PFX.length;i++) if(PFX[i][1]===L) s+=PFX[i][0]; }
+  return norm(D,s);
+}
+
+/* ---------- Move-the-point state ---------- */
+var M={n:parse("0.0047"), e:0, step:3, unit:"A"};
+var said="";
+$("unitSel").innerHTML=UNITS.map(function(u){return '<option value="'+u+'"'+(u===M.unit?" selected":"")+'>'+(u||"no unit")+'</option>'}).join("");
+
+function renderNum(prevE){
+  var n=M.n, e=M.e, pe=(prevE==null)?e:prevE;
+  var hi=Math.max(top(n),e,pe), lo=Math.min(n.s,e-1,pe-1);
+  var shownHi=Math.max(top(n),e), shownLo=Math.min(n.s,e), cols=hi-lo+1;
+  /* fit the digits to the box width */
+  var box=$("mover").clientWidth-24, fs=Math.max(18,Math.min(46,box/((cols+5)*0.62)));
+  var cw=fs*0.62, h='<span class="strip" id="strip">';
+  $("numrow").style.fontSize=fs+"px";
+  for(var p=hi;p>=lo;p--){
+    var show=(p<=shownHi&&p>=shownLo), wasShown=(p<=Math.max(top(n),pe)&&p>=Math.min(n.s,pe));
+    h+='<span class="col'+((prevE==null?show:wasShown)?"":" hide")+'" data-p="'+p+'" data-show="'+(show?1:0)+'" style="width:'+cw+'px">'+dig(n,p)+'</span>';
+  }
+  var x=function(ee){ return (hi-ee+1)*cw; };
+  h+='<span class="dot'+(e===shownLo?" ghost":"")+'" id="dot" style="left:'+x(pe)+'px"></span>';
+  if(prevE!=null && prevE!==e){
+    var a=Math.min(x(pe),x(e)), b=Math.max(x(pe),x(e)), steps=Math.abs(pe-e), w=(b-a)/steps, svg='';
+    for(var i=0;i<steps;i++){ var x1=a+i*w, x2=x1+w; svg+='<path d="M'+x1+' '+(fs*0.62)+' Q'+((x1+x2)/2)+' '+(fs*0.05)+' '+x2+' '+(fs*0.62)+'" style="animation-delay:'+(i*0.08)+'s"/>'; }
+    h+='<svg class="hops" width="'+(cols*cw)+'" height="'+fs+'" aria-hidden="true">'+svg+'</svg>';
+  }
+  h+='</span>';
+  h+='<span class="pow">× 10<sup>'+e+'</sup></span>'+(M.unit?'<span class="unitlbl">'+M.unit+'</span>':'');
+  $("numrow").innerHTML=h;
+  if(prevE!=null){
+    void $("strip").offsetWidth;
+    requestAnimationFrame(function(){
+      $("dot").style.left=x(e)+"px";
+      [].forEach.call(document.querySelectorAll(".col"),function(c){ c.classList.toggle("hide",c.dataset.show!=="1"); });
+    });
+  }
+}
+function render(prevE){
+  var n=M.n, e=M.e, u=M.unit, m=mant(n,e), mv=Number(m), P=pfx(e), en=engE(n), sc=top(n);
+  renderNum(prevE);
+  $("said").textContent=said;
+  var pill=$("formPill"), isEng=(e%3===0&&mv>=1&&mv<1000), isSci=(e===sc);
+  if(isEng&&isSci){ pill.textContent="Engineering and scientific notation"; pill.className="pill good"; }
+  else if(isEng){ pill.textContent="Engineering notation"; pill.className="pill good"; }
+  else if(isSci){ pill.textContent="Scientific notation (not engineering: "+e+" isn’t a multiple of 3)"; pill.className="pill warn"; }
+  else if(e%3===0){ pill.textContent=(mv<1?"Power is a multiple of 3, but the number in front is under 1":"Power is a multiple of 3, but the number in front is 1,000 or more"); pill.className="pill warn"; }
+  else { pill.textContent="Not engineering notation yet: "+e+" isn’t a multiple of 3"; pill.className="pill"; }
+  var dec=width(n,0)<=24?commas(mant(n,0)):"too long to write out", Pe=pfx(en);
+  $("liveForms").innerHTML=
+    '<tr><td>Decimal</td><td class="v">'+dec+(u?" "+u:"")+'</td><td class="m">Point at E0</td></tr>'+
+    '<tr><td>As shown</td><td class="v">'+eStr(n,e)+(u?" "+u:"")+'</td><td class="m">'+m+' × 10'+sup(e)+'</td></tr>'+
+    '<tr><td>Prefix</td><td class="v">'+(P?m+" "+P[1]+u+(P[2]?' <span class="muted" style="font-weight:500">('+P[2]+')</span>':""):"—")+'</td><td class="m">'+(P?"E"+e+(P[1]?" is "+P[2]+" ("+P[1]+")":" needs no prefix"):"No prefix for E"+e+": move to a multiple of 3")+'</td></tr>'+
+    '<tr><td>Scientific</td><td class="v">'+eStr(n,sc)+(u?" "+u:"")+'</td><td class="m">One digit before the point</td></tr>'+
+    '<tr><td>Engineering</td><td class="v">'+eStr(n,en)+(u?" "+u:"")+(Pe?" = "+mant(n,en)+" "+Pe[1]+u:"")+'</td><td class="m">1 to 999 before the point</td></tr>';
+  $("rdE").textContent=eStr(n,e)+(u?" "+u:"");
+  $("rdP").textContent=P?(P[1]||u?m+" "+P[1]+u:m):"no prefix for E"+e;
+  $("mvL").disabled=!canMove(-1); $("mvR").disabled=!canMove(1);
+}
+/* dir +1 = point moves right (exponent down) */
+function canMove(dir){ var e2=M.e-dir*M.step; return e2>=MINE-3&&e2<=MAXE+3&&width(M.n,e2)<=22; }
+function move(dir){
+  if(!canMove(dir)) return;
+  var pe=M.e; M.e-=dir*M.step;
+  var k=M.step, big=k===3?"1,000":"10";
+  said="Point moved "+k+(k===1?" place ":" places ")+(dir>0?"right":"left")+": the number got "+big+" times "+(dir>0?"bigger":"smaller")+", so the exponent went "+(dir>0?"down":"up")+" by "+k+" (E"+pe+" → E"+M.e+").";
+  render(pe);
+}
+$("mvL").addEventListener("click",function(){ move(-1); });
+$("mvR").addEventListener("click",function(){ move(1); });
+document.addEventListener("keydown",function(ev){ if(S.view!=="move"||/INPUT|SELECT|TEXTAREA/.test(ev.target.tagName)) return; if(ev.key==="ArrowLeft"){ev.preventDefault();move(-1)} if(ev.key==="ArrowRight"){ev.preventDefault();move(1)} });
+
+function setNumber(n,unit){
+  M.n=n; if(unit!=null){ M.unit=unit; $("unitSel").value=unit; }
+  M.e=width(n,0)<=22?0:engE(n); said="Press Point → or ← Point to move the decimal point.";
+  render(); renderLadder();
+}
+$("yourForm").addEventListener("submit",function(ev){
+  ev.preventDefault(); var n=parse($("yourIn").value);
+  if(!n){ $("yourErr").hidden=false; $("yourErr").textContent="Type a number bigger than 0, like 0.0047, 4700, 4.7E-3 or 4.7m."; return; }
+  if(top(n)>MAXE+2||top(n)<MINE-3){ $("yourErr").hidden=false; $("yourErr").textContent="That’s outside the prefixes this tool covers (P to p). Try a number between 1E-12 and 999E15."; return; }
+  $("yourErr").hidden=true; setNumber(n,$("unitSel").value);
+});
+$("unitSel").addEventListener("change",function(){ M.unit=this.value; render(); renderLadder(); });
+var EX=[["0.0047","A"],["47000","Ω"],["0.000000022","F"],["2400000000","Hz"],["0.000047","F"],["2E12","B"]];
+$("exChips").innerHTML=EX.map(function(x,i){return '<button type="button" data-i="'+i+'">'+commas(x[0].indexOf("E")>0?x[0]:x[0])+" "+x[1]+'</button>'}).join("");
+$("exChips").addEventListener("click",function(ev){ var b=ev.target.closest("button"); if(!b) return; var x=EX[+b.dataset.i]; $("yourIn").value=x[0]; $("yourErr").hidden=true; setNumber(parse(x[0]),x[1]); });
+
+/* ---------- Ladder ---------- */
+function renderLadder(){
+  var n=M.n, u=M.unit, best=engE(n), h='<tr><th>Prefix</th><th>Power</th><th>Your number on this rung</th></tr>';
+  PFX.forEach(function(p){
+    var w=width(n,p[0]), v=w<=24?commas(mant(n,p[0])):"≈ "+eStr(n,best).replace(/E.*/,"")+"E"+(best-p[0]);
+    h+='<tr'+(p[0]===best?' class="best"':'')+'><td class="sym">'+(p[1]||"–")+'<small>'+(p[2]||"none")+'</small></td><td class="pw">E'+p[0]+'</td><td class="val">'+v+" "+p[1]+u+'</td></tr>';
+  });
+  $("ladder").innerHTML=h;
+}
+
+/* ---------- Views ---------- */
+var S={view:"move"};
+function mark(id,v){ $(id).querySelectorAll("button").forEach(function(x){x.setAttribute("aria-pressed",String(x.dataset.v===v))}); }
+function seg(id,fn){ $(id).addEventListener("click",function(e){ var b=e.target.closest("button"); if(!b) return; mark(id,b.dataset.v); fn(b.dataset.v); }); }
+function setView(v){
+  S.view=v; store.set("el-eng-view",v); mark("viewSeg",v);
+  ["move","ladder","practice"].forEach(function(k){ $("v-"+k).hidden=k!==v; });
+  $("yourBox").hidden=v==="practice";
+  $("ctlBar").hidden=v!=="move"; document.body.classList.toggle("has-bar",v==="move");
+  if(v==="move") render();
+}
+seg("viewSeg",setView);
+seg("stepSeg",function(v){ M.step=+v; said=v==="1"?"Step is 1 place: good for scientific notation.":"Step is 3 places: each move is one prefix."; render(); });
+window.addEventListener("resize",function(){ if(S.view==="move") renderNum(); });
+
+/* ---------- Practice ---------- */
+var P={lvl:"basic", cur:null, done:false, right:0, tries:0};
+var DIG=["1","12","15","18","22","27","33","39","47","56","68","82","2","25","5","75","1","15","33","47"];
+function rnd(a){ return a[Math.floor(Math.random()*a.length)]; }
+function lvlE(){ return P.lvl==="basic"?[-6,-3,3,6]:[-12,-9,-6,-3,3,6,9,12,15]; }
+var UNIT_BY_E={15:["B"],12:["B","Hz"],9:["Hz","B","Ω"],6:["Ω","Hz","W"],3:["Ω","V","Hz","W"],0:["V","A"],"-3":["A","V","H","s"],"-6":["F","A","s"],"-9":["F","s"],"-12":["F"]};
+function eOpts(sel){ var o=""; for(var e=MAXE;e>=MINE;e-=3) o+='<option value="'+e+'"'+(e===sel?" selected":"")+'>E'+e+'</option>'; return o; }
+function pOpts(sel){ return PFX.map(function(p){return '<option value="'+p[0]+'"'+(p[0]===sel?" selected":"")+'>'+(p[1]?p[1]+" ("+p[2]+")":"none")+'</option>'}).join(""); }
+function makeProblem(){
+  var E=rnd(lvlE()), D=rnd(DIG), r=rnd([0,1,2]), n=norm(D,E+r-(D.length-1)), u=rnd(UNIT_BY_E[E]);
+  var types=["dec2eng","sci2eng","e2pfx","pfx2pfx","dec2pfx"];
+  var t=rnd(types);
+  if((t==="dec2eng"||t==="dec2pfx")&&width(n,0)>16) t="e2pfx";
+  if(t==="sci2eng"&&top(n)%3===0) t="pfx2pfx";
+  var q={n:n,t:t,E:E,u:u};
+  if(t==="dec2eng"){ q.txt="Write <code>"+commas(mant(n,0))+"</code> in engineering notation."; q.from=0; q.sel="e"; }
+  if(t==="sci2eng"){ q.txt="This is scientific notation: <code>"+eStr(n,top(n))+"</code>. Write it in engineering notation."; q.from=top(n); q.sel="e"; }
+  if(t==="e2pfx"){ q.txt="Write <code>"+eStr(n,E)+" "+u+"</code> using a prefix."; q.from=E; q.sel="p"; }
+  if(t==="dec2pfx"){ q.txt="Write <code>"+commas(mant(n,0))+" "+u+"</code> using a prefix, with 1 to 999 in front."; q.from=0; q.sel="p"; }
+  if(t==="pfx2pfx"){
+    var opts=lvlE().concat([0]).filter(function(x){ return x!==E && Math.abs(x-E)<=(P.lvl==="basic"?3:6) && width(n,x)<=14; });
+    if(!opts.length) return makeProblem();
+    var T=rnd(opts); q.T=T; q.from=E;
+    q.txt="Change <code>"+commas(mant(n,E))+" "+pfx(E)[1]+u+"</code> to "+(pfx(T)[1]?pfx(T)[2]+" ("+pfx(T)[1]+u+")":"plain "+u)+".";
+    q.sel="fixed";
+  }
+  return q;
+}
+function newProblem(){
+  var q=P.cur=makeProblem(); P.done=false;
+  $("pText").innerHTML=q.txt; $("ansIn").value=""; $("pFb").hidden=true; $("pHint").hidden=true; $("chkBtn").disabled=false;
+  var sel=$("ansSel");
+  if(q.sel==="e"){ sel.hidden=false; sel.innerHTML=eOpts(0); $("ansFix").textContent=""; }
+  else if(q.sel==="p"){ sel.hidden=false; sel.innerHTML=pOpts(0); $("ansFix").textContent=q.u; }
+  else { sel.hidden=true; $("ansFix").textContent=(pfx(q.T)[1]||"")+q.u; }
+}
+function walk(n,from,to){
+  /* list each 3-place hop from exponent `from` to `to` */
+  var out=[], e=from, dir=to<from?1:-1;
+  if((from-to)%3!==0){ out.push("Move the point "+Math.abs(from-to)+" places "+(dir>0?"right":"left")+": <code>"+mant(n,from)+"</code> → <code>"+mant(n,to)+"</code>, E"+from+" → E"+to+"."); return out; }
+  while(e!==to){ var e2=e-dir*3; out.push("Move the point 3 places "+(dir>0?"right":"left")+": <code>"+mant(n,e)+"</code> → <code>"+mant(n,e2)+"</code> (E"+e+" → E"+e2+")"); e=e2; }
+  return out;
+}
+function explain(q){
+  var n=q.n, to=q.t==="pfx2pfx"?q.T:engE(n), steps=[];
+  if(q.t==="sci2eng") steps.push("The exponent "+q.from+" isn’t a multiple of 3. Move the point until it is, keeping 1 to 999 in front.");
+  if(q.t==="pfx2pfx"){ var k=(q.from-q.T)/3; steps.push((k>0?"Going down the ladder ":"Going up the ladder ")+Math.abs(k)+(Math.abs(k)===1?" rung":" rungs")+" from "+(pfx(q.from)[2]||"plain")+" to "+(pfx(q.T)[2]||"plain")+": the number gets "+(Math.abs(k)===1?"1,000":"1,000,000")+" times "+(k>0?"bigger":"smaller")+"."); }
+  steps=steps.concat(walk(n,q.from,to));
+  if(q.t!=="pfx2pfx" && q.t!=="sci2eng" && q.t!=="dec2eng") steps.push("E"+to+" is "+(pfx(to)[1]?pfx(to)[2]+" ("+pfx(to)[1]+")":"no prefix")+": <code>"+mant(n,to)+" "+pfx(to)[1]+q.u+"</code>");
+  if(q.t==="dec2eng"||q.t==="sci2eng") steps.push("<code>"+mant(n,to)+"</code> is between 1 and 999, so stop: <code>"+eStr(n,to)+"</code>"+(pfx(to)?" = <code>"+mant(n,to)+" "+pfx(to)[1]+"</code>":""));
+  return {to:to, html:"<ol>"+steps.map(function(s){return "<li>"+s+"</li>"}).join("")+"</ol>"};
+}
+function answerText(q,ex){ var to=ex.to; return q.sel==="e"?eStr(q.n,to):mant(q.n,to)+" "+(pfx(to)[1]||"")+q.u; }
+function check(){
+  var q=P.cur, a=parse($("ansIn").value);
+  if(!a){ $("pFb").hidden=false; $("pFb").className="fb no"; $("pFb").innerHTML='<b class="t">Type a number first, like 4.7 or 470.</b>'; return; }
+  if(P.done) return;
+  var exp = q.sel==="fixed" ? q.T : +$("ansSel").value;
+  var got={D:a.D,s:a.s+exp}, ok=same(got,q.n), ex=explain(q), msg, front=Number(mant(a,0));
+  var canonical = q.sel==="fixed" || (front>=1&&front<1000);
+  P.done=true; P.tries++;
+  if(ok&&canonical){ P.right++; msg="Right!"; }
+  else if(ok){ msg="Same value, but put 1 to 999 in front of the point."; }
+  else if(got.D===q.n.D){ msg="The digits are right, but the point is in the wrong place. Check which way it moves."; }
+  else msg="Not quite.";
+  $("pFb").hidden=false; $("pFb").className="fb "+(ok&&canonical?"ok":"no");
+  $("pFb").innerHTML='<b class="t">'+msg+'</b>Answer: <code>'+answerText(q,ex)+'</code>'+ex.html;
+  $("chkBtn").disabled=true; $("tally").textContent=P.right+" of "+P.tries+" right";
+}
+$("ansForm").addEventListener("submit",function(e){ e.preventDefault(); check(); });
+$("nextBtn").addEventListener("click",newProblem);
+$("hintBtn").addEventListener("click",function(){
+  var q=P.cur, h;
+  if(q.t==="pfx2pfx") h=(q.T<q.from?"Smaller prefix, bigger number: move the point 3 places right per rung.":"Bigger prefix, smaller number: move the point 3 places left per rung.");
+  else h="Move the point 3 places at a time until there’s 1 to 999 in front. Right moves take the exponent down, left moves take it up.";
+  $("pHint").hidden=false; $("pHint").textContent=h;
+});
+seg("lvlSeg",function(v){ P.lvl=v; newProblem(); });
+
+/* ---------- Start ---------- */
+render(); renderLadder(); newProblem(); $("tally").textContent="";
+said="Press Point → or ← Point to move the decimal point."; $("said").textContent=said;
+var v0=store.get("el-eng-view"); setView(["move","ladder","practice"].indexOf(v0)>=0?v0:"move");
+})();
+</script>
+<script>
+/* Theme button: cycles Auto (follow the device), Light and Dark; the choice is shared by every Electronics Lab and PLC Lab page */
+(function(){
+  var b=document.getElementById("themeBtn"); if(!b) return;
+  var ICON={auto:'<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 4v16" /><path d="M12 4a8 8 0 0 1 0 16z" fill="currentColor" stroke="none"/></svg>',
+    light:'<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>',
+    dark:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>'};
+  var NAME={auto:"Auto",light:"Light",dark:"Dark"}, NEXT={auto:"light",light:"dark",dark:"auto"};
+  function get(){ try{ var t=localStorage.getItem("pl-theme"); return t==="light"||t==="dark"?t:"auto" }catch(e){ return "auto" } }
+  function apply(t){
+    if(t==="auto") document.documentElement.removeAttribute("data-theme"); else document.documentElement.setAttribute("data-theme",t);
+    b.innerHTML=ICON[t]+"<span>"+NAME[t]+"</span>";
+    b.setAttribute("aria-label","Color theme: "+NAME[t]+". Change to "+NAME[NEXT[t]]);
+    b.title="Color theme: "+NAME[t]+(t==="auto"?" (follows this device)":"");
+  }
+  b.addEventListener("click",function(){ var t=NEXT[get()]; try{ if(t==="auto") localStorage.removeItem("pl-theme"); else localStorage.setItem("pl-theme",t) }catch(e){} apply(t); });
+  apply(get());
+})();
+</script>
+</body>
+</html>
