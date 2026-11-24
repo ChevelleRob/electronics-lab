@@ -265,7 +265,7 @@ select{font:inherit;padding:9px 6px;border:1.5px solid var(--line);border-radius
 <body>
 <header class="top">
   <div class="inner">
-    <div class="brand"><h1><a href="../" title="Back to Electronics Lab home">Electronics Lab</a></h1><span>Ohm's law</span><span class="ver">v1.0</span><button class="themebtn" id="themeBtn" type="button"></button></div>
+    <div class="brand"><h1><a href="../" title="Back to Electronics Lab home">Electronics Lab</a></h1><span>Ohm's law</span><span class="ver">v1.1</span><button class="themebtn" id="themeBtn" type="button"></button></div>
   </div>
 </header>
 
@@ -307,7 +307,7 @@ select{font:inherit;padding:9px 6px;border:1.5px solid var(--line);border-radius
       <button data-v="e" aria-pressed="true">Electron flow</button><button data-v="c" aria-pressed="false">Conventional</button>
     </div>
     <div class="cap"><span class="pill" id="statePill"></span></div>
-    <div class="fixin" id="fixIn" hidden><button class="fix" id="fixBtn2" type="button">Replace resistor</button><span class="muted">Puts in a new resistor and turns the supply back to 0 V.</span></div>
+    <div class="fixin" id="fixIn" hidden><button class="fix" id="fixBtn2" type="button">Replace resistor</button><span class="muted">Opens the switch, turns the supply back to 0 V and puts in a new resistor.</span></div>
 
     <h3>Schematic</h3>
     <p class="muted" style="margin-top:0">The same circuit drawn with symbols. <b>A</b> is the ammeter, <b>V</b> the voltmeter.</p>
@@ -629,7 +629,7 @@ $("vUp").addEventListener("click",function(){ setPs(Math.floor(S.psV*2+1e-6)/2+0
 function setR(i){ S.ri=Math.max(0,Math.min(RES.length-1,i)); if(!S.blown){ S.heat=0; } drawRes(); renderChip(); lastMath=""; }
 $("rDn").addEventListener("click",function(){ setR(S.ri-1); });
 $("rUp").addEventListener("click",function(){ setR(S.ri+1); });
-function fix(){ S.blown=false; S.heat=0; S.temp=0; S.smokeT=-1; setPs(0); drawRes(); updateFix(); lastMath=""; }
+function fix(){ if(S.closed) toggleSwitch(); S.blown=false; S.heat=0; S.temp=0; S.smokeT=-1; setPs(0); drawRes(); updateFix(); lastMath=""; }
 $("fixBtn").addEventListener("click",fix); $("fixBtn2").addEventListener("click",fix);
 function updateFix(){ $("fixBtn").hidden=!S.blown; $("fixIn").hidden=!S.blown; }
 function seg(id,fn){

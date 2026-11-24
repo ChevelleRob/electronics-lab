@@ -19,8 +19,6 @@ Each item says where it appears: tool → section.
 
 ## Ohm's Law
 
-- [ ] **Letters:** E stands for electromotive force; I stands for the intensity of the current. *Ohm's Law → "Why E and I?" note*
-- [ ] **Kit resistors are rated ¼ W.** *Ohm's Law → Circuit (resistor label, "Too much current" note, status pill)*
 - [ ] **Resistor color code:** black 0, brown 1, red 2, orange 3, yellow 4, green 5, blue 6, violet 7, gray 8, white 9; gold tolerance band = ±5%; 4-band order is digit, digit, multiplier, tolerance. *Ohm's Law → resistor picture and the OHMS stepper in the bottom bar*
 - [ ] **E12 values:** 10, 12, 15, 18, 22, 27, 33, 39, 47, 56, 68, 82 in each decade (the tool uses 10 Ω to 1 MΩ). *Ohm's Law → OHMS stepper*
 - [ ] **Burnout timing (demo values):** a ¼ W resistor starts being damaged above ¼ W and goes in about 6 s at twice that, almost at once far above it. *Ohm's Law → Circuit*
@@ -34,3 +32,5 @@ Checked by the instructor; no action needed.
 - [x] Lab bench supplies go to 30 V at 5 A; most experiments use 6 V or 12 V.
 - [x] The class writes voltage as E (E = I × R).
 - [x] Practice answers within ±5% count as right.
+- [x] Ohm's Law: E stands for electromotive force; I stands for the intensity of the current.
+- [x] Ohm's Law: ¼ W resistors are right for the examples (resistor wattage may become a choice in the Power tool).

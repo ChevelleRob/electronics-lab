@@ -26,7 +26,8 @@ rules live here.
 - Ohm's law is taught with the **Ohm's law triangle**; the **power wheel** comes in when watts are introduced (its own Power tool).
 - Voltage is written **E** (E = I × R), current **I**, resistance **R**. Units stay V, A, Ω.
 - Resistors are **E12** values with **4 color bands**, gold (±5%) tolerance. Practice answers within **±5%** count as right.
-- Bench supplies in the lab go to **30 V at 5 A**; most experiments use 6 V or 12 V. Power-supply sliders go the full 0–30 V so students can over-volt and burn out parts. A Replace/Fix button puts in a new part and turns the supply back to 0 V.
+- Bench supplies in the lab go to **30 V at 5 A**; most experiments use 6 V or 12 V. Power-supply sliders go the full 0–30 V so students can over-volt and burn out parts. A Replace/Fix button opens the switch, turns the supply back to 0 V and puts in a new part.
+- Resistors in the examples are ¼ W. The Power tool may let students pick other wattages.
 
 ## Look
 
@@ -55,7 +56,7 @@ rules live here.
 ## Planned tools (suggested order)
 
 1. Simple Circuit (done)
-2. Ohm's Law (done; triangle, E for voltage), then a separate Power tool (power wheel)
+2. Ohm's Law (done; triangle, E for voltage), then a separate Power tool (power wheel; maybe a choice of resistor wattage)
 3. Resistor Color Code (both directions, 4 and 5 band)
 4. Using a Multimeter (volts in parallel, amps in series, resistance with power off, common mistakes)
 5. Series, Parallel and Combination circuits (with voltage dividers)

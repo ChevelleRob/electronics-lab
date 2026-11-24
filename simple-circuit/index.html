@@ -191,7 +191,7 @@ body.conv .legend i{background:repeating-linear-gradient(90deg,var(--cflow) 0 4p
 <body>
 <header class="top">
   <div class="inner">
-    <div class="brand"><h1><a href="../" title="Back to Electronics Lab home">Electronics Lab</a></h1><span>Simple circuit</span><span class="ver">v1.2</span><button class="themebtn" id="themeBtn" type="button"></button></div>
+    <div class="brand"><h1><a href="../" title="Back to Electronics Lab home">Electronics Lab</a></h1><span>Simple circuit</span><span class="ver">v1.3</span><button class="themebtn" id="themeBtn" type="button"></button></div>
   </div>
 </header>
 
@@ -230,7 +230,7 @@ body.conv .legend i{background:repeating-linear-gradient(90deg,var(--cflow) 0 4p
   </div>
 
   <div class="cap"><span class="pill" id="statePill"></span></div>
-  <div class="fixin" id="fixIn" hidden><button class="fix" id="fixBtn2" type="button"></button><span class="muted">Puts in a new part and turns the supply back to 0 V.</span></div>
+  <div class="fixin" id="fixIn" hidden><button class="fix" id="fixBtn2" type="button"></button><span class="muted">Opens the switch, turns the supply back to 0 V and puts in a new part.</span></div>
 
   <h3>Schematic</h3>
   <p class="muted" style="margin-top:0">The same circuit drawn with symbols.</p>
@@ -563,7 +563,7 @@ function setPs(v){ S.psV=Math.round(Math.max(0,Math.min(PS_MAX,v))*10)/10; $("vS
 $("vSl").addEventListener("input",function(){ setPs(+this.value); });
 $("vDn").addEventListener("click",function(){ setPs(Math.ceil(S.psV*2-1e-6)/2-0.5); });
 $("vUp").addEventListener("click",function(){ setPs(Math.floor(S.psV*2+1e-6)/2+0.5); });
-function fix(){ S.blown[key()]=false; S.heat[key()]=0; S.temp[key()]=0; S.flashT=-1; S.smokeT=-1; setPs(0); updateFix(); }
+function fix(){ if(S.closed) toggleSwitch(); S.blown[key()]=false; S.heat[key()]=0; S.temp[key()]=0; S.flashT=-1; S.smokeT=-1; setPs(0); updateFix(); }
 $("fixBtn").addEventListener("click",fix); $("fixBtn2").addEventListener("click",fix);
 function row2(){ $("row2").hidden = S.src!=="ps" && !isBlown(); }
 function updateFix(){
