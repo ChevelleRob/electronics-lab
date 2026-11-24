@@ -14,7 +14,7 @@ Each item says where it appears: tool → section.
 - [ ] **Four parts of a circuit:** source, conductors, load, control. Is this the wording you teach? *Simple Circuit → "The four parts of a circuit" note; quiz question 3*
 - [ ] **Bulb at low voltage:** current flows before the filament glows; it then glows dull red before it gets bright. *Simple Circuit → Power supply + Bulb → Try this; status pill*
 - [ ] **Motor start:** a motor needs a little voltage before it starts to turn (the tool uses about 15% of its rating). *Simple Circuit → Power supply + Motor → Try this; status pill*
-- [ ] **Failure points (demo values, not from a datasheet):** the bulb starts heating toward burnout above 1.25 × its rating (7.5 V for a 6 V bulb) and goes almost at once at 2 ×; the motor above 1.6 × (about 9.6 V for a 6 V motor), and smokes before it burns out. Do these feel right for the lab's parts? *Simple Circuit → Power supply*
+- [ ] **Failure points (demo values, not from a datasheet):** the bulb starts heating toward burnout above 1.25 × its rating (7.5 V for a 6 V bulb) and goes almost at once at 2 ×; the motor above 1.6 × (about 9.6 V for a 6 V motor), and smokes before it burns out. The HEAT bar reaches its damage line at those points. Do these feel right for the lab's parts? *Simple Circuit → Power supply*
 - [ ] **Part currents (demo values):** 6 V bulb 0.5 A, 12 V bulb 0.25 A, 6 V motor 0.3 A, 12 V motor 0.15 A, each treated as a fixed resistance. *Simple Circuit → supply ammeter, status table*
 
 ## Confirmed

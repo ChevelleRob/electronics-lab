@@ -113,9 +113,6 @@ body.conv .legend i{background:repeating-linear-gradient(90deg,var(--cflow) 0 4p
 .status td:first-child{font-weight:600;white-space:nowrap;width:1%}
 .status td.v{font-family:var(--mono);font-weight:700;white-space:nowrap;width:1%}
 .status td.m{color:var(--muted);font-size:14px}
-.heat{display:inline-block;width:64px;height:10px;border-radius:5px;background:var(--surface2);border:1px solid var(--line);overflow:hidden;vertical-align:middle}
-.heat b{display:block;height:100%;width:0;background:var(--amber)}
-.heat b.hot{background:var(--red)}
 
 .note{margin-top:14px;padding:12px 14px;border-left:4px solid var(--amber);background:var(--surface);border-radius:0 8px 8px 0}
 .note p{margin:4px 0}
@@ -136,29 +133,36 @@ body.conv .legend i{background:repeating-linear-gradient(90deg,var(--cflow) 0 4p
 .score{margin-top:12px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;font-weight:600}
 .btn{background:var(--surface);border:1.5px solid var(--line);border-radius:8px;padding:8px 14px;font-weight:600;cursor:pointer}
 
+/* Heat: vertical bar graph next to the readings, with a line at the damage threshold */
+.heatv{grid-area:heat;display:flex;flex-direction:column;align-items:center;gap:3px}
+.heatv .tube{position:relative;width:14px;height:40px;border-radius:7px;background:#1A2228;box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.3)}
+.heatv .tube b{position:absolute;left:2px;right:2px;bottom:2px;height:0;border-radius:5px;background:var(--live);transition:background .2s}
+.heatv .tube b.warm{background:#F0B33A}
+.heatv .tube b.hot{background:#F27360}
+.heatv .tube i{position:absolute;left:-5px;right:-5px;height:2px;border-radius:1px;background:#EEF1F2}
+.heatv small{font-size:9px;font-weight:700;letter-spacing:.06em;opacity:.8}
 /* Bottom control bar */
 .bar{position:fixed;left:0;right:0;bottom:0;z-index:6;background:var(--panel);color:var(--onpanel);padding:10px 14px calc(10px + env(safe-area-inset-bottom,0px));box-shadow:0 -3px 12px rgba(0,0,0,.25)}
-.bar .in{max-width:720px;margin:0 auto;display:grid;grid-template-columns:auto minmax(0,1fr) auto;grid-template-areas:"sw meter fix" "sup sup sup";gap:8px 12px;align-items:center}
-.bar .in.nosup{grid-template-areas:"sw meter fix"}
-.switch{grid-area:sw;display:flex;align-items:center;gap:10px;background:transparent;border:0;padding:0;cursor:pointer;text-align:left;color:var(--onpanel)}
+.bar .in{max-width:720px;margin:0 auto;display:grid;grid-template-columns:auto auto minmax(0,1fr) auto;grid-template-areas:"meter heat . sw" "row2 row2 row2 row2";gap:8px 10px;align-items:center}
+.row2{grid-area:row2;display:flex;align-items:center;gap:10px;min-width:0}
+.switch{grid-area:sw;display:flex;align-items:center;gap:10px;background:transparent;border:0;padding:0;cursor:pointer;text-align:right;color:var(--onpanel)}
 .knob{width:44px;height:44px;border-radius:50%;background:#1A2228;position:relative;flex:none;box-shadow:inset 0 0 0 3px #5D6A74}
 .knob::after{content:"";position:absolute;left:50%;top:6px;width:6px;height:32px;margin-left:-3px;border-radius:3px;background:var(--onpanel);transform:rotate(-40deg);transform-origin:50% 16px;transition:transform .15s}
 .switch[aria-pressed="true"] .knob::after{transform:rotate(40deg)}
 .switch[aria-pressed="true"] .knob{box-shadow:inset 0 0 0 3px var(--live)}
 .switch b{display:block;font-size:14px}
 .switch small{display:block;font-family:var(--mono);font-size:11px;opacity:.8}
-.meter{grid-area:meter;justify-self:end;display:flex;flex-direction:column;align-items:flex-end;background:#0B140F;border-radius:6px;padding:4px 10px;font-family:var(--mono);line-height:1.2;min-width:0}
+.meter{grid-area:meter;justify-self:start;display:flex;flex-direction:column;align-items:flex-end;background:#0B140F;border-radius:6px;padding:4px 10px;font-family:var(--mono);line-height:1.2;min-width:0}
 .meter .vv{color:#46E08A;font-size:17px;font-weight:700}
 .meter .aa{color:#FFB347;font-size:13px;font-weight:700}
 .meter small{color:#9AA7B1;font-size:10px;font-family:var(--sans);font-weight:600;letter-spacing:.05em}
-.fix{grid-area:fix;background:var(--amber);color:#1D1400;border:0;border-radius:8px;padding:8px 10px;font-weight:700;font-size:14px;cursor:pointer;line-height:1.15;max-width:110px}
-.supply{grid-area:sup;display:flex;align-items:center;gap:8px;min-width:0}
+.fix{flex:none;background:var(--amber);color:#1D1400;border:0;border-radius:8px;padding:8px 10px;font-weight:700;font-size:14px;cursor:pointer;line-height:1.15;max-width:110px}
+.supply{flex:1;display:flex;align-items:center;gap:8px;min-width:0}
 .supply .sl{font-size:12px;font-weight:700;letter-spacing:.05em;opacity:.8;flex:none}
 .supply input{flex:1;min-width:0;height:32px;accent-color:var(--live)}
 .step{flex:none;width:38px;height:38px;border-radius:50%;border:1.5px solid rgba(255,255,255,.3);background:transparent;color:var(--onpanel);font-size:20px;font-weight:700;cursor:pointer;line-height:1;padding:0}
 @media (min-width:640px){
-  .bar .in{grid-template-columns:auto minmax(0,1fr) auto auto;grid-template-areas:"sw sup meter fix"}
-  .bar .in.nosup{grid-template-columns:auto minmax(0,1fr) auto auto}
+  .bar .in{grid-template-columns:auto auto minmax(0,1fr) auto;grid-template-areas:"meter heat row2 sw";column-gap:14px}
 }
 
 [hidden]{display:none!important}
@@ -175,7 +179,7 @@ body.conv .legend i{background:repeating-linear-gradient(90deg,var(--cflow) 0 4p
 <body>
 <header class="top">
   <div class="inner">
-    <div class="brand"><h1><a href="../" title="Back to Electronics Lab home">Electronics Lab</a></h1><span>Simple circuit</span><span class="ver">v1.0</span><button class="themebtn" id="themeBtn" type="button"></button></div>
+    <div class="brand"><h1><a href="../" title="Back to Electronics Lab home">Electronics Lab</a></h1><span>Simple circuit</span><span class="ver">v1.1</span><button class="themebtn" id="themeBtn" type="button"></button></div>
   </div>
 </header>
 
@@ -248,7 +252,7 @@ body.conv .legend i{background:repeating-linear-gradient(90deg,var(--cflow) 0 4p
 
   <div class="note">
     <p><b>Ratings matter</b></p>
-    <p>Every load is built for a certain voltage. Too little and a bulb is dim or a motor won't start. Too much and it draws too much current, overheats and burns out. A burned-out part is an <b>open</b>: the path is broken, so the current drops to zero, the same as opening the switch.</p>
+    <p>Every load is built for a certain voltage. Too little and a bulb is dim or a motor won't start. Too much and it draws too much current, overheats and burns out. A burned-out part is an <b>open</b>: the path is broken, so the current drops to zero, the same as opening the switch.</p><p>The <b>HEAT</b> bar next to the readings at the bottom shows how hot the part is. Past the white line, it’s being damaged; if the bar reaches the top, it burns out.</p>
   </div>
 
   <h2>Check yourself</h2>
@@ -258,17 +262,20 @@ body.conv .legend i{background:repeating-linear-gradient(90deg,var(--cflow) 0 4p
 
 <div class="bar" id="ctlBar">
   <div class="in" id="barIn">
-    <button class="switch" id="swBtn" type="button" aria-pressed="false">
-      <span class="knob" aria-hidden="true"></span>
-      <span><b>Switch</b><small id="swTxt">Open</small></span>
-    </button>
     <div class="meter" aria-live="off"><small id="mLbl">BATTERY</small><span class="vv" id="mV">6.0 V</span><span class="aa" id="mA">0.00 A</span></div>
-    <button class="fix" id="fixBtn" type="button" hidden></button>
+    <div class="heatv" id="heatV" role="meter" aria-label="Heat in the load" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" title="Heat. Past the white line the part is being damaged."><div class="tube"><b id="hvFill"></b><i id="hvLine"></i></div><small>HEAT</small></div>
+    <button class="switch" id="swBtn" type="button" aria-pressed="false">
+      <span><b>Switch</b><small id="swTxt">Open</small></span>
+      <span class="knob" aria-hidden="true"></span>
+    </button>
+    <div class="row2" id="row2">
     <div class="supply" id="supply" hidden>
       <span class="sl">VOLTS</span>
       <button class="step" id="vDn" type="button" aria-label="Lower the supply 0.5 volts">−</button>
       <input type="range" id="vSl" min="0" max="30" step="0.1" value="0" aria-label="Power supply voltage, 0 to 30 volts">
       <button class="step" id="vUp" type="button" aria-label="Raise the supply 0.5 volts">+</button>
+    </div>
+    <button class="fix" id="fixBtn" type="button" hidden></button>
     </div>
   </div>
 </div>
@@ -281,7 +288,7 @@ var store={get:function(k){try{return localStorage.getItem(k)}catch(e){return nu
 /* ---------- State ---------- */
 var BAT_V=6, PS_MAX=30;
 var S={src:"bat", load:"bulb", rating:6, flow:store.get("el-flow")==="c"?"c":"e",
-  closed:false, psV:0, blown:{}, heat:{}, angle:0, off:0, flashT:-1, smokeT:-1, t:0};
+  closed:false, psV:0, blown:{}, heat:{}, temp:{}, angle:0, off:0, flashT:-1, smokeT:-1, t:0};
 
 /* Model parts. Ir = current at the rated voltage; resistance is treated as fixed.
    th = how far over its rating (as a ratio) a part can run before it starts heating toward failure;
@@ -411,7 +418,7 @@ function build(){
   flows=[].slice.call(document.querySelectorAll(".diag .flow,.diag .flowbg"));
   $("sLoadName").textContent=LOAD[S.load].name;
   var ps=S.src==="ps";
-  $("supply").hidden=!ps; $("barIn").classList.toggle("nosup",!ps);
+  $("supply").hidden=!ps; row2();
   $("mLbl").textContent=ps?"SUPPLY":"BATTERY";
   setTry(); render(0);
 }
@@ -433,12 +440,17 @@ function legend(){
 }
 
 /* ---------- Simulation ---------- */
+var DMG=0.6; /* where the damage line sits on the heat bar (0 to 1) */
+function heatShown(){ var k=key(); return S.blown[k]?1:Math.min(1,(S.temp[k]||0)+(1-DMG)*(S.heat[k]||0)); }
 function step(dt){
   var L=LOAD[S.load], k=key(), r=ratio(), I=amps();
   var h=S.heat[k]||0;
   if(I>0 && r>L.th){ h+=L.k*(r-L.th)*(r-L.th)*dt; }
   else { h=Math.max(0,h-0.25*dt); }
   S.heat[k]=h;
+  /* temperature rises with power (about V squared) toward the damage line, reached at the threshold ratio */
+  var tgt = I>0 ? Math.min(DMG, DMG*(r/L.th)*(r/L.th)) : 0, tp=S.temp[k]||0;
+  S.temp[k] = tp+(tgt-tp)*Math.min(1,dt/0.5);
   if(h>=1 && !S.blown[k]){
     S.blown[k]=true; S.heat[k]=1;
     if(S.load==="bulb") S.flashT=S.t; else S.smokeT=S.t;
@@ -522,9 +534,12 @@ function render(){
   $("smSw").textContent=closed?"The path is complete":"The path is broken";
   $("svI").textContent=fmtA(I);
   $("smI").textContent= I>0 ? "Electrons are flowing all the way around the loop" : blown ? "No current: the burned-out "+(bulb?"bulb":"motor")+" broke the path" : !closed ? "No current: the path is open" : "No current: no voltage to push the electrons";
-  var hot2=S.heat[key()]||0;
-  $("svLoad").innerHTML='<small style="font-family:var(--sans);font-weight:600;color:var(--muted);margin-right:6px">Heat</small><span class="heat" title="Heat"><b class="'+(hot2>0.5||blown?"hot":"")+'" style="width:'+Math.round(Math.min(1,hot2)*100)+'%"></b></span>';
-  $("smLoad").textContent=si[0]+". Rated "+S.rating+" V"+(hot2>0.02&&!blown?" (heat bar shows how close it is to burning out)":"")+".";
+  $("svLoad").textContent=S.rating+" V";
+  $("smLoad").textContent=si[0]+". Rated "+S.rating+" V.";
+  var hv=heatShown(), fill=$("hvFill");
+  fill.style.height="calc("+(hv*100).toFixed(1)+"% - "+(hv*4).toFixed(1)+"px)";
+  fill.className = hv>DMG+0.005||blown ? "hot" : hv>DMG*0.75 ? "warm" : "";
+  $("heatV").setAttribute("aria-valuenow",Math.round(hv*100));
   $("mV").textContent=fmtV(V); $("mA").textContent=fmtA(I);
   $("swTxt").textContent=closed?"Closed":"Open";
 }
@@ -536,11 +551,12 @@ function setPs(v){ S.psV=Math.round(Math.max(0,Math.min(PS_MAX,v))*10)/10; $("vS
 $("vSl").addEventListener("input",function(){ setPs(+this.value); });
 $("vDn").addEventListener("click",function(){ setPs(Math.ceil(S.psV*2-1e-6)/2-0.5); });
 $("vUp").addEventListener("click",function(){ setPs(Math.floor(S.psV*2+1e-6)/2+0.5); });
-function fix(){ S.blown[key()]=false; S.heat[key()]=0; S.flashT=-1; S.smokeT=-1; setPs(0); updateFix(); }
+function fix(){ S.blown[key()]=false; S.heat[key()]=0; S.temp[key()]=0; S.flashT=-1; S.smokeT=-1; setPs(0); updateFix(); }
 $("fixBtn").addEventListener("click",fix); $("fixBtn2").addEventListener("click",fix);
+function row2(){ $("row2").hidden = S.src!=="ps" && !isBlown(); }
 function updateFix(){
   var b=isBlown(), t="Replace "+(S.load==="bulb"?"bulb":"motor");
-  $("fixBtn").hidden=!b; $("fixIn").hidden=!b; $("fixBtn").textContent=t; $("fixBtn2").textContent=t;
+  $("fixBtn").hidden=!b; $("fixIn").hidden=!b; row2(); $("fixBtn").textContent=t; $("fixBtn2").textContent=t;
 }
 function seg(id,fn){
   var el=$(id);
@@ -592,6 +608,7 @@ function score(){
 $("quizReset").addEventListener("click",buildQuiz);
 
 /* ---------- Start ---------- */
+$("hvLine").style.bottom="calc("+(DMG*100)+"% - "+(DMG*4+1)+"px + 2px)";
 document.body.classList.add("has-bar");
 document.body.classList.toggle("conv",S.flow==="c");
 mark("flowSeg",S.flow); legend();
