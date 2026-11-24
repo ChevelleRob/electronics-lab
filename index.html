@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script>/* Theme chosen with the header button (Auto / Light / Dark), shared by every Electronics Lab and PLC Lab page */try{var t=localStorage.getItem("pl-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+<title>Electronics Lab</title>
+<meta name="description" content="Interactive practice tools for basic electronics students: circuits, electron flow, meters and more.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  color-scheme: light;
+  --bg:#E2E4DF; --surface:#F3F4F1; --surface2:#E9EBE6; --ink:#1D272F; --muted:#56626C;
+  --line:#BCC1BA; --live:#178F4C; --panel:#2A3640; --onpanel:#EEF1F2;
+  --c1:#1F5FA8; --c1bg:#DCE7F5;
+  --sans:"Barlow", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --mono:"JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme: dark;
+    --bg:#141A1F; --surface:#1D252C; --surface2:#242E36; --ink:#E5EAED; --muted:#9AA7B1;
+    --line:#34414B; --live:#3BD681; --panel:#0F1418; --onpanel:#E5EAED;
+    --c1:#8DB8F0; --c1bg:#1D3150;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme: dark;
+  --bg:#141A1F; --surface:#1D252C; --surface2:#242E36; --ink:#E5EAED; --muted:#9AA7B1;
+  --line:#34414B; --live:#3BD681; --panel:#0F1418; --onpanel:#E5EAED;
+  --c1:#8DB8F0; --c1bg:#1D3150;
+}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.45;-webkit-text-size-adjust:100%}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--panel)}
+:focus-visible{outline:3px solid var(--c1);outline-offset:2px}
+.wrap{max-width:720px;margin:0 auto;padding:0 16px 48px}
+
+header.top{background:var(--panel);color:var(--onpanel);position:sticky;top:env(safe-area-inset-top,0px);z-index:5}
+.top .inner{max-width:720px;margin:0 auto;padding:12px 16px 12px}
+.brand{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.brand h1{margin:0;font-size:22px;font-weight:700;letter-spacing:.01em}
+.brand span{font-size:14px;opacity:.75}
+.brand .ver{margin-left:auto;font-family:var(--mono);font-size:12px;opacity:.6}
+
+h2{font-size:21px;margin:22px 0 4px;font-weight:700}
+p{margin:6px 0}
+.muted{color:var(--muted)}
+.intro{margin-top:18px}
+
+.tools{list-style:none;margin:12px 0 0;padding:0;display:grid;gap:10px}
+.tool{display:flex;align-items:center;gap:14px;background:var(--surface);border:1.5px solid var(--line);border-radius:10px;padding:14px;color:inherit;text-decoration:none;min-height:64px}
+.tool:hover{border-color:var(--ink)}
+.tool .lamp{width:14px;height:14px;border-radius:50%;flex:none;background:var(--live);box-shadow:0 0 8px var(--live)}
+.tool .txt{flex:1;min-width:0}
+.tool b{display:block;font-size:18px}
+.tool small{display:block;color:var(--muted);font-size:15px}
+.tool .tv{font-family:var(--mono);font-size:12px;color:var(--muted);flex:none}
+.tool .go{font-size:22px;font-weight:700;color:var(--muted);flex:none}
+.plats{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.plats span{font-size:13px;font-weight:600;color:var(--c1);background:var(--c1bg);border-radius:4px;padding:1px 7px}
+footer{margin-top:28px;font-size:14px}
+footer a{color:var(--c1)}
+
+/* Theme button in the header: Auto / Light / Dark */
+.themebtn{display:inline-flex;align-items:center;gap:5px;margin-left:10px;align-self:center;background:transparent;border:1.5px solid rgba(255,255,255,.28);color:var(--onpanel);border-radius:6px;padding:3px 8px;font:inherit;font-size:12px;font-weight:600;cursor:pointer;line-height:1.2}
+.themebtn svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round}
+@media (max-width:420px){ .brand > span:not(.ver){order:5;flex-basis:100%} }
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="inner">
+    <div class="brand"><h1>Electronics Lab</h1><span>Practice tools for electronics students</span><span class="ver">v1.0</span><button class="themebtn" id="themeBtn" type="button"></button></div>
+  </div>
+</header>
+
+<main class="wrap">
+  <p class="intro">Hands-on practice for basic electronics. Pick a tool. Each one works on your phone.</p>
+
+  <h2>Tools</h2>
+  <ul class="tools">
+    <li>
+      <a class="tool" href="simple-circuit/">
+        <span class="lamp" aria-hidden="true"></span>
+        <span class="txt">
+          <b>Simple Circuit</b>
+          <small>A battery or power supply, a switch and a bulb or motor. Watch the electrons flow, and see what too much voltage does.</small>
+          <span class="plats"><span>Electron flow</span><span>Switch</span><span>Bulb</span><span>Motor</span><span>Ratings</span></span>
+        </span>
+        <span class="tv">v1.0</span>
+        <span class="go" aria-hidden="true">›</span>
+      </a>
+    </li>
+  </ul>
+  <p class="muted" style="margin-top:14px">More tools are on the way.</p>
+
+  <footer class="muted">
+    <a href="https://github.com/ChevelleRob/electronics-lab/blob/main/CHANGELOG.md">What's new</a>
+  </footer>
+</main>
+<script>
+/* Theme button: cycles Auto (follow the device), Light and Dark; the choice is shared by every Electronics Lab and PLC Lab page */
+(function(){
+  var b=document.getElementById("themeBtn"); if(!b) return;
+  var ICON={auto:'<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 4v16" /><path d="M12 4a8 8 0 0 1 0 16z" fill="currentColor" stroke="none"/></svg>',
+    light:'<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>',
+    dark:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>'};
+  var NAME={auto:"Auto",light:"Light",dark:"Dark"}, NEXT={auto:"light",light:"dark",dark:"auto"};
+  function get(){ try{ var t=localStorage.getItem("pl-theme"); return t==="light"||t==="dark"?t:"auto" }catch(e){ return "auto" } }
+  function apply(t){
+    if(t==="auto") document.documentElement.removeAttribute("data-theme"); else document.documentElement.setAttribute("data-theme",t);
+    b.innerHTML=ICON[t]+"<span>"+NAME[t]+"</span>";
+    b.setAttribute("aria-label","Color theme: "+NAME[t]+". Change to "+NAME[NEXT[t]]);
+    b.title="Color theme: "+NAME[t]+(t==="auto"?" (follows this device)":"");
+  }
+  b.addEventListener("click",function(){ var t=NEXT[get()]; try{ if(t==="auto") localStorage.removeItem("pl-theme"); else localStorage.setItem("pl-theme",t) }catch(e){} apply(t); });
+  apply(get());
+})();
+</script>
+</body>
+</html>
