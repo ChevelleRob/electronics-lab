@@ -190,9 +190,10 @@ body.conv .legend i{background:repeating-linear-gradient(90deg,var(--cflow) 0 4p
 body.has-bar .wrap{padding-bottom:calc(175px + env(safe-area-inset-bottom,0px))}
 body.solar.has-bar .wrap{padding-bottom:calc(215px + env(safe-area-inset-bottom,0px))}
 .rules2{margin:12px 0 0;padding:0;list-style:none}
-.rules2 li{display:grid;grid-template-columns:64px minmax(0,1fr);gap:4px 12px;align-items:center;padding:10px 0;border-top:1px solid var(--line)}
+.rules2 li{display:grid;grid-template-columns:112px minmax(0,1fr);gap:4px 12px;align-items:center;padding:10px 0;border-top:1px solid var(--line)}
 .rules2 li:last-child{border-bottom:1px solid var(--line)}
-.rules2 svg{width:64px;height:40px;display:block}
+.rules2 svg{width:112px;height:auto;display:block}
+.rules2 svg text{font-family:var(--sans);font-size:13px;font-weight:800;fill:var(--ink)}
 .rules2 svg .s{fill:none;stroke:var(--ink);stroke-width:2;stroke-linecap:round}
 .rules2 svg .t{fill:none;stroke:var(--ink);stroke-width:3.4;stroke-linecap:round}
 .rules2 p{margin:0;font-size:15px;line-height:1.4}
@@ -214,7 +215,7 @@ body.solar.has-bar .wrap{padding-bottom:calc(215px + env(safe-area-inset-bottom,
 @media (prefers-reduced-motion: reduce){ .hot{animation:none} }
 .dmm{fill:#F0C330;stroke:var(--ink);stroke-width:1.5}
 .dmm-lcd{fill:#C9D3C0;stroke:#4A5862;stroke-width:1}
-.dmm-txt{font-family:var(--mono);font-size:11px;font-weight:700;fill:#1A2228}
+.diag .dmm-txt{font-family:var(--mono);font-size:11px;font-weight:700;fill:#1A2228}
 .res-body{stroke:var(--ink);stroke-width:1.2}
 .tblbox{overflow-x:auto;margin-top:12px;border:1.5px solid var(--line);border-radius:10px;max-width:100%}
 .rows{border-collapse:collapse;width:100%;font-size:15px;background:var(--surface)}
@@ -263,16 +264,16 @@ body.solar.has-bar .wrap{padding-bottom:calc(215px + env(safe-area-inset-bottom,
 <body>
 <header class="top">
   <div class="inner">
-    <div class="brand"><h1><a href="../" title="Back to Electronics Lab home">Electronics Lab</a></h1><span>Batteries &amp; solar</span><span class="ver">v1.1</span><button class="themebtn" id="themeBtn" type="button"></button></div>
+    <div class="brand"><h1><a href="../" title="Back to Electronics Lab home">Electronics Lab</a></h1><span>Batteries &amp; solar</span><span class="ver">v1.2</span><button class="themebtn" id="themeBtn" type="button"></button></div>
   </div>
 </header>
 
 <main class="wrap">
   <p class="intro">One cell only gives a small voltage and can only supply so much. To get more, cells are wired together:</p>
   <ul class="rules2">
-    <li><svg viewBox="0 0 64 40" aria-hidden="true"><path class="s" d="M2 20 H14 M20 20 H30 M36 20 H46 M52 20 H62"/><path class="t" d="M14 10 V30"/><path class="s" d="M20 15 V25"/><path class="t" d="M30 10 V30"/><path class="s" d="M36 15 V25"/><path class="t" d="M46 10 V30"/><path class="s" d="M52 15 V25"/></svg><p><b>Series</b>: end to end, + to −. The voltages <b>add</b>. The current and amp-hours stay the same as one cell.</p></li>
-    <li><svg viewBox="0 0 64 40" aria-hidden="true"><path class="s" d="M2 20 H10 V8 H29 M35 8 H54 V20 H62 M10 20 V32 H29 M35 32 H54 V20"/><path class="t" d="M29 2 V14 M29 26 V38"/><path class="s" d="M35 4 V12 M35 28 V36"/></svg><p><b>Parallel</b>: side by side, + to + and − to −. The voltage stays the same as one row. The current and amp-hours <b>add</b>.</p></li>
-    <li><svg viewBox="0 0 64 40" aria-hidden="true"><path class="s" d="M2 20 H8 V8 H18 M24 8 H36 M42 8 H56 V20 H62 M8 20 V32 H18 M24 32 H36 M42 32 H56 V20"/><path class="t" d="M18 2 V14 M18 26 V38 M36 2 V14 M36 26 V38"/><path class="s" d="M24 4 V12 M24 28 V36 M42 4 V12 M42 28 V36"/></svg><p><b>Series-parallel</b>: rows of cells in series, with the rows wired in parallel: more voltage <b>and</b> more amp-hours. Sometimes written like <code>3S2P</code>: 3 in series, 2 in parallel.</p></li>
+    <li><svg viewBox="0 0 120 56" aria-hidden="true"><path class="s" d="M2 32 H18 M24 32 H50 M56 32 H82 M88 32 H118"/><path class="t" d="M18 23 V41"/><path class="s" d="M24 27 V37"/><text x="12" y="23" text-anchor="middle">+</text><text x="30" y="25" text-anchor="middle">−</text><path class="t" d="M50 23 V41"/><path class="s" d="M56 27 V37"/><text x="44" y="23" text-anchor="middle">+</text><text x="62" y="25" text-anchor="middle">−</text><path class="t" d="M82 23 V41"/><path class="s" d="M88 27 V37"/><text x="76" y="23" text-anchor="middle">+</text><text x="94" y="25" text-anchor="middle">−</text></svg><p><b>Series</b>: end to end, + to −. The voltages <b>add</b>. The current and amp-hours stay the same as one cell.</p></li>
+    <li><svg viewBox="0 0 120 56" aria-hidden="true"><path class="s" d="M2 32 H16 V18 H56 M62 18 H104 V32 H118 M16 32 V46 H56 M62 46 H104 V32"/><path class="t" d="M56 9 V27"/><path class="s" d="M62 13 V23"/><text x="50" y="9" text-anchor="middle">+</text><text x="68" y="11" text-anchor="middle">−</text><path class="t" d="M56 37 V55"/><path class="s" d="M62 41 V51"/><text x="50" y="37" text-anchor="middle">+</text><text x="68" y="39" text-anchor="middle">−</text></svg><p><b>Parallel</b>: side by side, + to + and − to −. The voltage stays the same as one row. The current and amp-hours <b>add</b>.</p></li>
+    <li><svg viewBox="0 0 120 56" aria-hidden="true"><path class="s" d="M2 32 H12 V18 H38 M44 18 H72 M78 18 H108 V32 H118 M12 32 V46 H38 M44 46 H72 M78 46 H108 V32"/><path class="t" d="M38 9 V27"/><path class="s" d="M44 13 V23"/><text x="32" y="9" text-anchor="middle">+</text><text x="50" y="11" text-anchor="middle">−</text><path class="t" d="M72 9 V27"/><path class="s" d="M78 13 V23"/><text x="66" y="9" text-anchor="middle">+</text><text x="84" y="11" text-anchor="middle">−</text><path class="t" d="M38 37 V55"/><path class="s" d="M44 41 V51"/><text x="32" y="37" text-anchor="middle">+</text><text x="50" y="39" text-anchor="middle">−</text><path class="t" d="M72 37 V55"/><path class="s" d="M78 41 V51"/><text x="66" y="37" text-anchor="middle">+</text><text x="84" y="39" text-anchor="middle">−</text></svg><p><b>Series-parallel</b>: rows of cells in series, with the rows wired in parallel: more voltage <b>and</b> more amp-hours. Sometimes written like <code>3S2P</code>: 3 in series, 2 in parallel.</p></li>
   </ul>
 
   <div class="seg modeseg" id="modeSeg" role="group" aria-label="Kind of source">
@@ -280,7 +281,8 @@ body.solar.has-bar .wrap{padding-bottom:calc(215px + env(safe-area-inset-bottom,
   </div>
 
   <div id="priBox">
-    <p class="muted" style="margin:10px 0 0;font-size:15px"><b>Primary</b> cells are used once and thrown away (recycled). They can’t be recharged: trying can make them leak or burst.</p>
+    <p class="muted" style="margin:10px 0 0;font-size:15px">In the symbols above, the long line of each cell is <b>+</b> and the short line is <b>−</b>.</p>
+    <p class="muted" style="margin:6px 0 0;font-size:15px"><b>Primary</b> cells are used once and thrown away (recycled). They can’t be recharged: trying can make them leak or burst.</p>
     <div class="lbl">Cell</div>
     <div class="seg chemseg" id="chemSeg" role="group" aria-label="Kind of cell">
       <button data-v="alk" aria-pressed="true">Alkaline 1.5 V</button><button data-v="cz" aria-pressed="false">Carbon-zinc 1.5 V</button><button data-v="coin" aria-pressed="false">Coin 3 V</button><button data-v="nine" aria-pressed="false">9 V</button>
