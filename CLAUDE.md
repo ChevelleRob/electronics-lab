@@ -62,7 +62,8 @@ rules live here.
 3. Resistor Color Code (both directions, 4 and 5 band)
 4. Using a Multimeter (volts in parallel, amps in series, resistance with power off, common mistakes)
 5. Series, Parallel and Combination circuits (with voltage dividers)
-6. Batteries in series, parallel and combination
+6. Batteries & Solar (done; primary cells and solar in series/parallel, resistor load with meters, cell and panel zoom for solar)
+6a. Rechargeable (secondary) cells: NiCd, NiMH, lead-acid, Li-ion/LiPo, LiFePO4 in series/parallel, plus charging, discharge curves with an over-discharge damage line, amp-hours, C rating, LiPo puffing and thermal runaway (next)
 7. Kirchhoff's voltage and current laws
 8. Capacitors (charging, RC time constant)
 9. Diodes and LEDs (forward bias, current-limiting resistor)

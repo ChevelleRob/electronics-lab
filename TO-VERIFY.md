@@ -17,6 +17,17 @@ Each item says where it appears: tool → section.
 - [ ] **Failure points (demo values, not from a datasheet):** the bulb starts heating toward burnout above 1.25 × its rating (7.5 V for a 6 V bulb) and goes almost at once at 2 ×; the motor above 1.6 × (about 9.6 V for a 6 V motor), and smokes before it burns out. The HEAT bar reaches its damage line at those points. Do these feel right for the lab's parts? *Simple Circuit → Power supply*
 - [ ] **Part currents (demo values):** 6 V bulb 0.5 A, 12 V bulb 0.25 A, 6 V motor 0.3 A, 12 V motor 0.15 A, each treated as a fixed resistance. *Simple Circuit → supply ammeter, status table*
 
+## Batteries & Solar
+
+- [ ] **Inside a 9 V battery:** six 1.5 V cells in series; in many alkaline 9 V batteries they are AAAA-size cylinders (a little thinner than AAA), others use six stacked flat cells. (You saw six cells that looked like AAA; teardowns I remember show AAAA.) *Batteries & Solar → Primary → "Inside a 9 V battery" note*
+- [ ] **Cell values (typical, for the demo):** AA alkaline 2.5 Ah, about 0.15 Ω internal resistance; AA carbon-zinc 1.0 Ah, about 0.4 Ω; CR2032 lithium coin 3 V, 0.22 Ah (220 mAh), about 15 Ω. *Batteries & Solar → Primary (amp-hours, run time, voltage sag)*
+- [ ] **Primary cells can leak or burst** if recharged or forced backward by other cells. *Batteries & Solar → Primary intro and "Don't mix cells" note*
+- [ ] **Coin cells** have high internal resistance and suit watches and calculators, not motors. *Batteries & Solar → Primary → Try this*
+- [ ] **Solar cell voltage:** about 0.5 V working and 0.6 V with nothing connected, whatever the cell's size. *Batteries & Solar → Solar intro and notes*
+- [ ] **Solar panels:** a "12 V" panel is 36 cells in series, about 18 V working and 21–22 V unloaded; rooftop panels are 60 or 72 cells, about 30–40 V; home systems string panels to about 300–600 V DC. *Batteries & Solar → Solar → "Cells, panels and arrays" note; practice*
+- [ ] **Solar current values (demo):** one cell 0.5 A and one panel 6 A (about 5.5 A working) in full sun. *Batteries & Solar → Solar*
+- [ ] **Shade and bypass diodes:** one shaded cell limits its whole series row; panels have bypass diodes to route around shaded groups; cold raises cell voltage a little, heat lowers it. *Batteries & Solar → Solar → "Why shade matters" note*
+
 ## Engineering Notation
 
 - [ ] **Windows Calculator (Scientific mode):** type 4.7, **exp**, 3, **+/−** to enter 4.7E-3; **F-E** switches to E notation; there is no engineering mode. *Engineering Notation → "What does 4.7E-3 mean?" note*
@@ -39,5 +50,6 @@ Checked by the instructor; no action needed.
 - [x] Practice answers within ±5% count as right.
 - [x] Engineering Notation covers peta (P) down to pico (p), with a note on where each is used.
 - [x] The class uses Windows Calculator; E notation (4.7E-3) is the main way to write it.
+- [x] Batteries & Solar: primary cells are alkaline, carbon-zinc and lithium coin; a 9 V battery has six cells inside (instructor's teardown); load is a resistor with a voltmeter and ammeter; solar has cell and panel zoom levels.
 - [x] Ohm's Law: E stands for electromotive force; I stands for the intensity of the current.
 - [x] Ohm's Law: ¼ W resistors are right for the examples (resistor wattage may become a choice in the Power tool).

@@ -5,6 +5,7 @@ Each tool has its own version number, shown in its header bar.
 
 ## Home page (`index.html`)
 
+- **v1.7** Added the Batteries & Solar card (v1.0)
 - **v1.6** Engineering Notation card: v1.1, with Beginner and Advanced in its description
 - **v1.5** Added the Engineering Notation card (v1.0), before Ohm's Law
 - **v1.4** Simple Circuit card: v1.3; Ohm's Law card: v1.1
@@ -12,6 +13,10 @@ Each tool has its own version number, shown in its header bar.
 - **v1.2** Site icon in the browser tab (and on the home screen when saved), and a preview image when a link to this page is shared; cards updated to the new tool versions
 - **v1.1** Simple Circuit card: v1.1
 - **v1.0** First version: home page with the Simple Circuit card (v1.0)
+
+## Batteries & Solar (`batteries-solar/`)
+
+- **v1.0** First version. Series, parallel and series-parallel (3S2P) explained, then a live pack built with SERIES and PARALLEL steppers feeding a load resistor with an ammeter in series and a voltmeter across it, with electron-flow dashes in each row. Primary cells: alkaline, carbon-zinc or lithium coin (each with its own amp-hours and internal resistance), a Build a 9 V battery button (six cells in series), pack voltage, amp-hours and run time, and tap-to-flip cells (series loses voltage; parallel becomes a short with a warning and hot cells). Solar: 0.5 V cells or 18 V (36-cell) panels, a sunlight slider, and tap-to-shade (one shaded cell holds back its whole series row). Row table, notes, Try this boxes and practice with ±5% answers
 
 ## Engineering Notation (`eng-notation/`)
 
