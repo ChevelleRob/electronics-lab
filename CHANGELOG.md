@@ -5,6 +5,7 @@ Each tool has its own version number, shown in its header bar.
 
 ## Home page (`index.html`)
 
+- **v2.0** Added the Rechargeable Cells card (v1.0)
 - **v1.9** Batteries & Solar card: v1.2; Ohm's Law card: v1.3
 - **v1.8** Batteries & Solar card: v1.1 (mentions 9 V batteries); Ohm's Law card: v1.2
 - **v1.7** Added the Batteries & Solar card (v1.0)
@@ -15,6 +16,10 @@ Each tool has its own version number, shown in its header bar.
 - **v1.2** Site icon in the browser tab (and on the home screen when saved), and a preview image when a link to this page is shared; cards updated to the new tool versions
 - **v1.1** Simple Circuit card: v1.1
 - **v1.0** First version: home page with the Simple Circuit card (v1.0)
+
+## Rechargeable Cells (`rechargeable/`)
+
+- **v1.0** First version, with Beginner and Advanced modes. NiCd, NiMH, lead-acid, Li-ion/LiPo and LiFePO4 with a table of nominal, full, empty and damage voltages. Discharge: cells in series, load current (amps, plus C rate in Advanced), a sped-up clock, a charge gauge, amp-hours used, a live voltage curve with empty and damage lines, a protection circuit (BMS) switch, heat and damage from too much current, and fewer amp-hours at high rates (Advanced). Charging: CC/CV for lithium, constant current with −ΔV or timer for NiCd/NiMH, bulk/absorption/float for lead-acid, on a live voltage and current graph, with too-fast warnings; Advanced adds a wrong charger setting and an unbalanced pack with and without a balance charger. LiPo safety: scenarios (normal, too much current, short circuit, overcharge, puncture, hot car; Advanced adds charging after over-discharge and below freezing), a thermometer with 60 °C damage and 90 °C point-of-no-return lines, a swelling meter, and a cell that vents and burns in thermal runaway; safe-handling list. Notes on discharging too fast and over-discharge. Practice with ±5% answers
 
 ## Batteries & Solar (`batteries-solar/`)
 

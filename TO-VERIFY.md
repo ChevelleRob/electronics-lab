@@ -17,6 +17,18 @@ Each item says where it appears: tool → section.
 - [ ] **Failure points (demo values, not from a datasheet):** the bulb starts heating toward burnout above 1.25 × its rating (7.5 V for a 6 V bulb) and goes almost at once at 2 ×; the motor above 1.6 × (about 9.6 V for a 6 V motor), and smokes before it burns out. The HEAT bar reaches its damage line at those points. Do these feel right for the lab's parts? *Simple Circuit → Power supply*
 - [ ] **Part currents (demo values):** 6 V bulb 0.5 A, 12 V bulb 0.25 A, 6 V motor 0.3 A, 12 V motor 0.15 A, each treated as a fixed resistance. *Simple Circuit → supply ammeter, status table*
 
+## Rechargeable Cells
+
+- [ ] **Per-cell voltages (nominal / full / empty / damage):** NiCd and NiMH 1.2 / 1.4 / 1.0 / 0.9 V; lead-acid 2.0 / 2.12 / 1.8 / 1.75 V; Li-ion/LiPo 3.7 / 4.2 / 3.0 / 2.5 V; LiFePO4 3.2 / 3.65 / 2.5 / 2.0 V. *Rechargeable → chemistry table, discharge graph lines*
+- [ ] **Demo cells:** AA NiCd 1.0 Ah, AA NiMH 2.0 Ah, one 2 V lead-acid cell 7 Ah (six make a 12 V SLA), LiPo 2.2 Ah rated 25C, LiFePO4 3.0 Ah; max continuous discharge NiCd 10C, NiMH 5C, lead-acid 3C, LiPo 25C, LiFePO4 10C; internal resistances 20, 30, 4, 6 and 15 mΩ. *Rechargeable → chemistry note, Advanced table and stats*
+- [ ] **Discharge curve shapes:** NiCd/NiMH flat then a steep drop; lead-acid slopes steadily (voltage shows state of charge); lithium gently sloping then a cliff; LiFePO4 very flat. *Rechargeable → Discharge → graph and Try this*
+- [ ] **Over-discharge damage:** lithium below about 2.5 V dissolves copper and can form internal shorts later (don't recharge); lead-acid left flat sulfates; NiCd/NiMH cells get reversed in packs. *Rechargeable → Discharge → over-discharge note*
+- [ ] **Lead-acid capacity at high current:** rated at the 20-hour rate (0.05C); at 1C it may give about half (Peukert's law). *Rechargeable → Discharge → C rate note (Advanced)*
+- [ ] **Charging:** lithium CC/CV to 4.2 V (LiFePO4 3.65 V), stop near 5% of the starting current, usually 0.5C to 1C, never below freezing; NiCd/NiMH constant current 0.5C to 1C stopping on a −ΔV dip or temperature, or about 14 hours on a timer at 0.1C; lead-acid bulk (0.1C to 0.3C) to about 2.4 V per cell (14.4 V), absorption, then float about 2.27 V per cell (13.6 V). *Rechargeable → Charging notes and simulation*
+- [ ] **LiPo temperatures:** damage and swelling from about 60 °C; a point of no return around 90 °C (it varies by cell); the anode's protective film breaks down, then the separator melts, the electrolyte makes flammable gas and the cathode can release oxygen. The simulation runs about 20× faster than real life. *Rechargeable → LiPo safety → thermometer, stages and thermal runaway note*
+- [ ] **LiPo causes of swelling and fire:** too much current, short circuit, overcharge, puncture or crushing, heat (hot car), charging after over-discharge, charging below freezing. *Rechargeable → LiPo safety → scenarios*
+- [ ] **LiPo handling:** balance charger, fireproof bag, never charge unattended, stay within the C rating and cutoff, store at about 3.8 V per cell, retire puffed or damaged packs. *Rechargeable → LiPo safety → safe-handling list; practice*
+
 ## Batteries & Solar
 
 - [ ] **Cell values (typical, for the demo):** AA alkaline 2.5 Ah, about 0.15 Ω internal resistance; AA carbon-zinc 1.0 Ah, about 0.4 Ω; CR2032 lithium coin 3 V, 0.22 Ah (220 mAh), about 15 Ω; 9 V alkaline 0.55 Ah (550 mAh), about 1.7 Ω. *Batteries & Solar → Primary (amp-hours, run time, voltage sag)*
@@ -53,3 +65,4 @@ Checked by the instructor; no action needed.
 - [x] Ohm's Law: E stands for electromotive force; I stands for the intensity of the current.
 - [x] Ohm's Law: ¼ W resistors are right for the examples (resistor wattage may become a choice in the Power tool).
 - [x] Batteries & Solar: an alkaline 9 V battery holds six AAAA cells in series; some other kinds use six stacked flat cells.
+- [x] Rechargeable Cells: theory only (no secondary cells in the lab); Beginner/Advanced modes; no memory effect, but a note that discharging too fast damages a battery; visual LiPo fire animation is fine.
