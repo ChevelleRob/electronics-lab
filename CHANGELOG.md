@@ -5,6 +5,7 @@ Each tool has its own version number, shown in its header bar.
 
 ## Home page (`index.html`)
 
+- **v1.8** Batteries & Solar card: v1.1 (mentions 9 V batteries); Ohm's Law card: v1.2
 - **v1.7** Added the Batteries & Solar card (v1.0)
 - **v1.6** Engineering Notation card: v1.1, with Beginner and Advanced in its description
 - **v1.5** Added the Engineering Notation card (v1.0), before Ohm's Law
@@ -16,6 +17,7 @@ Each tool has its own version number, shown in its header bar.
 
 ## Batteries & Solar (`batteries-solar/`)
 
+- **v1.1** 9 V battery is now a cell choice, drawn as a rectangular 9 V battery with snap terminals (replaces the Build a 9 V battery button); the Inside a 9 V battery note shows the six AAAA cells. Series, parallel and series-parallel explained as a plain list with schematic symbols instead of boxes that looked like buttons. Stepper numbers keep room for two digits (10S to 12S). The voltmeter’s black lead has a light outline so it shows in dark mode
 - **v1.0** First version. Series, parallel and series-parallel (3S2P) explained, then a live pack built with SERIES and PARALLEL steppers feeding a load resistor with an ammeter in series and a voltmeter across it, with electron-flow dashes in each row. Primary cells: alkaline, carbon-zinc or lithium coin (each with its own amp-hours and internal resistance), a Build a 9 V battery button (six cells in series), pack voltage, amp-hours and run time, and tap-to-flip cells (series loses voltage; parallel becomes a short with a warning and hot cells). Solar: 0.5 V cells or 18 V (36-cell) panels, a sunlight slider, and tap-to-shade (one shaded cell holds back its whole series row). Row table, notes, Try this boxes and practice with ±5% answers
 
 ## Engineering Notation (`eng-notation/`)
@@ -25,6 +27,7 @@ Each tool has its own version number, shown in its header bar.
 
 ## Ohm's Law (`ohms-law/`)
 
+- **v1.2** The voltmeter’s black lead has a light outline so it shows in dark mode
 - **v1.1** Replace resistor also opens the switch (as well as turning the supply back to 0 V)
 - **v1.0** First version. Intro to E (voltage), I (current) and R (resistance), E = I × R, and why the letters are E and I. Circuit: 0–30 V supply, switch, ammeter in series, E12 resistor from 10 Ω to 1 MΩ with color bands (gold ±5%), voltmeter in parallel, picture and schematic, electron/conventional flow, and a live triangle with the math worked out. ¼ W resistors heat up and burn open (ammeter 0, voltmeter reads the full supply), with a HEAT bar and Replace. Triangle: tap the letter to find, enter the other two with units, get the worked steps; prefix table. Practice: find E, I or R, Basic or With prefixes, ±5% answers, worked solutions and a hint when an answer is off by 1,000
 

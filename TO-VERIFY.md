@@ -19,8 +19,7 @@ Each item says where it appears: tool → section.
 
 ## Batteries & Solar
 
-- [ ] **Inside a 9 V battery:** six 1.5 V cells in series; in many alkaline 9 V batteries they are AAAA-size cylinders (a little thinner than AAA), others use six stacked flat cells. (You saw six cells that looked like AAA; teardowns I remember show AAAA.) *Batteries & Solar → Primary → "Inside a 9 V battery" note*
-- [ ] **Cell values (typical, for the demo):** AA alkaline 2.5 Ah, about 0.15 Ω internal resistance; AA carbon-zinc 1.0 Ah, about 0.4 Ω; CR2032 lithium coin 3 V, 0.22 Ah (220 mAh), about 15 Ω. *Batteries & Solar → Primary (amp-hours, run time, voltage sag)*
+- [ ] **Cell values (typical, for the demo):** AA alkaline 2.5 Ah, about 0.15 Ω internal resistance; AA carbon-zinc 1.0 Ah, about 0.4 Ω; CR2032 lithium coin 3 V, 0.22 Ah (220 mAh), about 15 Ω; 9 V alkaline 0.55 Ah (550 mAh), about 1.7 Ω. *Batteries & Solar → Primary (amp-hours, run time, voltage sag)*
 - [ ] **Primary cells can leak or burst** if recharged or forced backward by other cells. *Batteries & Solar → Primary intro and "Don't mix cells" note*
 - [ ] **Coin cells** have high internal resistance and suit watches and calculators, not motors. *Batteries & Solar → Primary → Try this*
 - [ ] **Solar cell voltage:** about 0.5 V working and 0.6 V with nothing connected, whatever the cell's size. *Batteries & Solar → Solar intro and notes*
@@ -53,3 +52,4 @@ Checked by the instructor; no action needed.
 - [x] Batteries & Solar: primary cells are alkaline, carbon-zinc and lithium coin; a 9 V battery has six cells inside (instructor's teardown); load is a resistor with a voltmeter and ammeter; solar has cell and panel zoom levels.
 - [x] Ohm's Law: E stands for electromotive force; I stands for the intensity of the current.
 - [x] Ohm's Law: ¼ W resistors are right for the examples (resistor wattage may become a choice in the Power tool).
+- [x] Batteries & Solar: an alkaline 9 V battery holds six AAAA cells in series; some other kinds use six stacked flat cells.

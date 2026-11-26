@@ -30,7 +30,7 @@
   --c1:#1F5FA8; --c1bg:#DCE7F5;
   --eflow:#1E6FE0; --cflow:#E07000;
   --wred:#C8372A; --wblk:#2B3136; --metal:#A3ABB1; --metal2:#C9CED2; --glass:rgba(255,255,255,.55);
-  --psbody:#CDD2CC; --fan:#3D7FB8; --smoke:#7D858B;
+  --psbody:#CDD2CC; --fan:#3D7FB8; --smoke:#7D858B; --leadcase:rgba(255,255,255,0);
   --sans:"Barlow", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   --mono:"JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
   box-sizing:border-box;
@@ -45,7 +45,7 @@
     --c1:#8DB8F0; --c1bg:#1D3150;
     --eflow:#6CB4FF; --cflow:#FFAA45;
     --wred:#D9493B; --wblk:#05080A; --metal:#7E888F; --metal2:#9AA3A9; --glass:rgba(255,255,255,.10);
-    --psbody:#323D46; --fan:#6FA8DA; --smoke:#A9B1B7;
+    --psbody:#323D46; --fan:#6FA8DA; --smoke:#A9B1B7; --leadcase:#9AA7B1;
   }
 }
 :root[data-theme="dark"]{
@@ -56,7 +56,7 @@
   --c1:#8DB8F0; --c1bg:#1D3150;
   --eflow:#6CB4FF; --cflow:#FFAA45;
   --wred:#D9493B; --wblk:#05080A; --metal:#7E888F; --metal2:#9AA3A9; --glass:rgba(255,255,255,.10);
-  --psbody:#323D46; --fan:#6FA8DA; --smoke:#A9B1B7;
+  --psbody:#323D46; --fan:#6FA8DA; --smoke:#A9B1B7; --leadcase:#9AA7B1;
 }
 *,*::before,*::after{box-sizing:inherit}
 html{scroll-padding-top:env(safe-area-inset-top,0px)}
@@ -189,11 +189,16 @@ body.conv .legend i{background:repeating-linear-gradient(90deg,var(--cflow) 0 4p
 /* ---------- Batteries & solar tool ---------- */
 body.has-bar .wrap{padding-bottom:calc(175px + env(safe-area-inset-bottom,0px))}
 body.solar.has-bar .wrap{padding-bottom:calc(215px + env(safe-area-inset-bottom,0px))}
-.rules2{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
-.rules2 div{background:var(--surface);border:1.5px solid var(--line);border-radius:10px;padding:10px 12px;min-width:0}
-.rules2 > div > b{display:block;font-size:17px}
-.rules2 span{display:block;font-size:14px;color:var(--muted);line-height:1.35;margin-top:2px}
-.rules2 .full{grid-column:1 / -1}
+.rules2{margin:12px 0 0;padding:0;list-style:none}
+.rules2 li{display:grid;grid-template-columns:64px minmax(0,1fr);gap:4px 12px;align-items:center;padding:10px 0;border-top:1px solid var(--line)}
+.rules2 li:last-child{border-bottom:1px solid var(--line)}
+.rules2 svg{width:64px;height:40px;display:block}
+.rules2 svg .s{fill:none;stroke:var(--ink);stroke-width:2;stroke-linecap:round}
+.rules2 svg .t{fill:none;stroke:var(--ink);stroke-width:3.4;stroke-linecap:round}
+.rules2 p{margin:0;font-size:15px;line-height:1.4}
+.rules2 p b:first-child{font-size:16px}
+.inside{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:6px}
+.inside svg{width:150px;height:auto;flex:none}
 .modeseg{margin-top:16px}
 .modeseg button{padding:10px 6px;font-size:17px}
 .chemseg{margin-top:8px}
@@ -239,7 +244,7 @@ body.solar.has-bar .wrap{padding-bottom:calc(215px + env(safe-area-inset-bottom,
 .r1 .stp,.r2 .stp{flex:1}
 .stp{display:flex;align-items:center;gap:6px;min-width:0}
 .stp .sl{font-size:11px;font-weight:700;letter-spacing:.05em;opacity:.8;flex:none;line-height:1.1}
-.stp b{flex:1;min-width:0;text-align:center;font-family:var(--mono);font-size:17px;background:#1A2228;border-radius:8px;padding:5px 4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.stp b{flex:1;min-width:calc(2ch + 12px);text-align:center;font-family:var(--mono);font-size:17px;background:#1A2228;border-radius:8px;padding:5px 4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .step{flex:none;width:34px;height:34px;border-radius:50%;border:1.5px solid rgba(255,255,255,.3);background:transparent;color:var(--onpanel);font-size:18px;font-weight:700;cursor:pointer;line-height:1;padding:0}
 .step:disabled{opacity:.3;cursor:default}
 .rd{flex:none;display:flex;flex-direction:column;align-items:flex-end;background:#0B140F;border-radius:6px;padding:3px 10px;font-family:var(--mono);line-height:1.2;min-width:0}
@@ -251,24 +256,24 @@ body.solar.has-bar .wrap{padding-bottom:calc(215px + env(safe-area-inset-bottom,
 .sun input{flex:1;min-width:0;height:30px;accent-color:#F0B33A}
 .sun b{font-family:var(--mono);font-size:15px;width:3.6em;text-align:right;flex:none}
 .nu{display:none}
-@media (max-width:360px){ #stS .sl,#stP .sl{display:none} .nu{display:inline} .stp .sl{font-size:10px} .step{width:30px;height:30px} .stp b{font-size:15px} .r1,.r2{gap:6px} .stp{gap:4px} }
+@media (max-width:360px){ #stS .sl,#stP .sl{display:none} .nu{display:inline} .stp .sl{font-size:10px} .step{width:30px;height:30px} .stp b{font-size:15px;min-width:calc(3ch + 10px)} .r1,.r2{gap:6px} .stp{gap:4px} }
 @media (min-width:700px){ .bar .in{flex-direction:row;flex-wrap:wrap;column-gap:16px} .r1{flex:1 1 300px} .r2{flex:1.2 1 300px} .sun{flex:1 1 100%} }
 </style>
 </head>
 <body>
 <header class="top">
   <div class="inner">
-    <div class="brand"><h1><a href="../" title="Back to Electronics Lab home">Electronics Lab</a></h1><span>Batteries &amp; solar</span><span class="ver">v1.0</span><button class="themebtn" id="themeBtn" type="button"></button></div>
+    <div class="brand"><h1><a href="../" title="Back to Electronics Lab home">Electronics Lab</a></h1><span>Batteries &amp; solar</span><span class="ver">v1.1</span><button class="themebtn" id="themeBtn" type="button"></button></div>
   </div>
 </header>
 
 <main class="wrap">
   <p class="intro">One cell only gives a small voltage and can only supply so much. To get more, cells are wired together:</p>
-  <div class="rules2">
-    <div><b>Series</b><span>End to end, + to −. The voltages <b>add</b>. The current and amp-hours stay the same as one cell.</span></div>
-    <div><b>Parallel</b><span>Side by side, + to + and − to −. The voltage stays the same as one row. The current and amp-hours <b>add</b>.</span></div>
-    <div class="full"><b>Series-parallel</b><span>Rows of cells in series, with the rows wired in parallel: more voltage <b>and</b> more amp-hours. Sometimes written like <code>3S2P</code>: 3 in series, 2 in parallel.</span></div>
-  </div>
+  <ul class="rules2">
+    <li><svg viewBox="0 0 64 40" aria-hidden="true"><path class="s" d="M2 20 H14 M20 20 H30 M36 20 H46 M52 20 H62"/><path class="t" d="M14 10 V30"/><path class="s" d="M20 15 V25"/><path class="t" d="M30 10 V30"/><path class="s" d="M36 15 V25"/><path class="t" d="M46 10 V30"/><path class="s" d="M52 15 V25"/></svg><p><b>Series</b>: end to end, + to −. The voltages <b>add</b>. The current and amp-hours stay the same as one cell.</p></li>
+    <li><svg viewBox="0 0 64 40" aria-hidden="true"><path class="s" d="M2 20 H10 V8 H29 M35 8 H54 V20 H62 M10 20 V32 H29 M35 32 H54 V20"/><path class="t" d="M29 2 V14 M29 26 V38"/><path class="s" d="M35 4 V12 M35 28 V36"/></svg><p><b>Parallel</b>: side by side, + to + and − to −. The voltage stays the same as one row. The current and amp-hours <b>add</b>.</p></li>
+    <li><svg viewBox="0 0 64 40" aria-hidden="true"><path class="s" d="M2 20 H8 V8 H18 M24 8 H36 M42 8 H56 V20 H62 M8 20 V32 H18 M24 32 H36 M42 32 H56 V20"/><path class="t" d="M18 2 V14 M18 26 V38 M36 2 V14 M36 26 V38"/><path class="s" d="M24 4 V12 M24 28 V36 M42 4 V12 M42 28 V36"/></svg><p><b>Series-parallel</b>: rows of cells in series, with the rows wired in parallel: more voltage <b>and</b> more amp-hours. Sometimes written like <code>3S2P</code>: 3 in series, 2 in parallel.</p></li>
+  </ul>
 
   <div class="seg modeseg" id="modeSeg" role="group" aria-label="Kind of source">
     <button data-v="pri" aria-pressed="true">Primary cells</button><button data-v="sol" aria-pressed="false">Solar</button>
@@ -278,9 +283,8 @@ body.solar.has-bar .wrap{padding-bottom:calc(215px + env(safe-area-inset-bottom,
     <p class="muted" style="margin:10px 0 0;font-size:15px"><b>Primary</b> cells are used once and thrown away (recycled). They can’t be recharged: trying can make them leak or burst.</p>
     <div class="lbl">Cell</div>
     <div class="seg chemseg" id="chemSeg" role="group" aria-label="Kind of cell">
-      <button data-v="alk" aria-pressed="true">Alkaline 1.5 V</button><button data-v="cz" aria-pressed="false">Carbon-zinc 1.5 V</button><button data-v="coin" aria-pressed="false">Lithium coin 3 V</button>
+      <button data-v="alk" aria-pressed="true">Alkaline 1.5 V</button><button data-v="cz" aria-pressed="false">Carbon-zinc 1.5 V</button><button data-v="coin" aria-pressed="false">Coin 3 V</button><button data-v="nine" aria-pressed="false">9 V</button>
     </div>
-    <div class="nine"><button class="btn" type="button" id="nineBtn">Build a 9 V battery</button></div>
   </div>
   <div id="solBox" hidden>
     <p class="muted" style="margin:10px 0 0;font-size:15px">A <b>solar cell</b> turns light into electricity. Each silicon cell makes about <b>0.5 V</b> no matter its size; more light (or a bigger cell) gives more <b>current</b>.</p>
@@ -355,9 +359,10 @@ function fHours(h){ if(!isFinite(h)) return "—"; if(h<1) return Math.round(h*6
 
 /* ---------- Parts (typical values; see TO-VERIFY) ---------- */
 var CHEM={
-  alk:{name:"Alkaline",e:1.5,r:0.15,ah:2.5,hot:2,  body:"#26313A",band:"#C98A2B",size:"AA"},
-  cz:{name:"Carbon-zinc",e:1.5,r:0.4,ah:1.0,hot:1, body:"#2F5D9E",band:"#C9CED2",size:"AA"},
-  coin:{name:"Lithium coin",e:3.0,r:15,ah:0.22,hot:0.03, body:"#B7BFC5",band:"#B7BFC5",size:"CR2032"}
+  alk:{name:"Alkaline",e:1.5,r:0.15,ah:2.5,hot:2,  body:"#26313A",band:"#C98A2B",label:"AA alkaline",nm:"alkaline 1.5 V"},
+  cz:{name:"Carbon-zinc",e:1.5,r:0.4,ah:1.0,hot:1, body:"#2F5D9E",band:"#C9CED2",label:"AA carbon-zinc",nm:"carbon-zinc 1.5 V"},
+  coin:{name:"Lithium coin",e:3.0,r:15,ah:0.22,hot:0.03, body:"#B7BFC5",band:"#B7BFC5",label:"CR2032 lithium coin",nm:"lithium coin 3 V"},
+  nine:{name:"9 V alkaline",e:9,r:1.7,ah:0.55,hot:0.5, body:"#2B2B2B",band:"#C98A2B",label:"9 V alkaline",nm:"9 V alkaline"}
 };
 var SOL={cell:{voc:0.6,a:0.03,isc:0.5,lab:"0.5 V"}, panel:{voc:21.6,a:1.08,isc:6,lab:"18 V"}};
 var LOADS=[]; [1,1.2,1.5,1.8,2.2,2.7,3.3,3.9,4.7,5.6,6.8,8.2].forEach(function(m){ for(var d=0;d<6;d++) LOADS.push(Math.round(m*Math.pow(10,d)*100)/100); });
@@ -400,7 +405,15 @@ function cellSvg(r,k,cx,y,w){
   var o="", flip=!!S.flip[key(r,k)], sh=!!S.shade[key(r,k)], lab;
   if(S.mode==="pri"){
     var ch=CHEM[S.chem];
-    if(S.chem==="coin"){
+    if(S.chem==="nine"){
+      var xa=cx-w/2, sn=flip?[0.7,0.3]:[0.3,0.7];
+      o+='<rect x="'+(xa+w*sn[0]-4)+'" y="'+(y-17)+'" width="8" height="6" fill="var(--metal)" stroke="var(--ink)" stroke-width=".8"/>'+
+         '<circle cx="'+(xa+w*sn[1])+'" cy="'+(y-14)+'" r="3.5" fill="var(--metal)" stroke="var(--ink)" stroke-width=".8"/>'+
+         '<rect x="'+xa+'" y="'+(y-12)+'" width="'+w+'" height="24" rx="3" fill="'+ch.body+'" stroke="'+(flip?"var(--red)":"var(--ink)")+'" stroke-width="'+(flip?2.5:1.2)+'"/>'+
+         '<rect x="'+xa+'" y="'+(y-12)+'" width="'+w+'" height="7" rx="3" fill="'+ch.band+'"/>'+
+         (w>=26?'<text x="'+cx+'" y="'+(y+8)+'" text-anchor="middle" style="font-size:10px;font-weight:800;fill:#EEF1F2">9V</text>':'')+
+         '<text x="'+(xa+w*sn[0])+'" y="'+(y-19)+'" text-anchor="middle" style="font-size:9px;font-weight:800">−</text><text x="'+(xa+w*sn[1])+'" y="'+(y-19)+'" text-anchor="middle" style="font-size:9px;font-weight:800">+</text>';
+    } else if(S.chem==="coin"){
       o+='<circle cx="'+cx+'" cy="'+y+'" r="'+Math.min(15,w/2)+'" fill="#B7BFC5" stroke="'+(flip?"var(--red)":"var(--ink)")+'" stroke-width="'+(flip?2.5:1.3)+'"/>'+
          '<circle cx="'+cx+'" cy="'+y+'" r="'+(Math.min(15,w/2)-4)+'" fill="none" stroke="#8C959B"/>'+
          '<text x="'+cx+'" y="'+(y+4)+'" text-anchor="middle" style="font-size:11px;font-weight:800;fill:#1D272F">'+(flip?"−":"+")+'</text>';
@@ -447,7 +460,7 @@ function build(){
   o+='<rect class="res-body" x="112" y="'+(ly-9)+'" width="56" height="18" rx="7" fill="#D9BC8C"/><text x="140" y="'+(ly-16)+'" text-anchor="middle" style="font-size:12px;font-weight:700" id="rLab"></text>';
   o+='<rect class="dmm" x="206" y="'+(ly-22)+'" width="58" height="44" rx="7"/><rect class="dmm-lcd" x="211" y="'+(ly-17)+'" width="48" height="17" rx="2"/><text class="dmm-txt" id="amT" x="255" y="'+(ly-4)+'" text-anchor="end" style="font-size:10px"></text><text x="235" y="'+(ly+15)+'" text-anchor="middle" style="font-size:12px;font-weight:800;fill:#1A2228">A</text>';
   /* voltmeter across the load */
-  o+='<path d="M112 '+ly+' C112 '+(ly+20)+' 116 '+(ly+34)+' 122 '+(ly+40)+'" fill="none" stroke="#1A1E21" stroke-width="2.5"/><path d="M168 '+ly+' C168 '+(ly+20)+' 164 '+(ly+34)+' 158 '+(ly+40)+'" fill="none" stroke="#D9493B" stroke-width="2.5"/>'+
+  o+='<path d="M112 '+ly+' C112 '+(ly+20)+' 116 '+(ly+34)+' 122 '+(ly+40)+'" fill="none" stroke="var(--leadcase)" stroke-width="5"/><path d="M112 '+ly+' C112 '+(ly+20)+' 116 '+(ly+34)+' 122 '+(ly+40)+'" fill="none" stroke="#1A1E21" stroke-width="2.5"/><path d="M168 '+ly+' C168 '+(ly+20)+' 164 '+(ly+34)+' 158 '+(ly+40)+'" fill="none" stroke="#D9493B" stroke-width="2.5"/>'+
      '<rect class="dmm" x="112" y="'+(ly+38)+'" width="56" height="44" rx="7"/><rect class="dmm-lcd" x="117" y="'+(ly+43)+'" width="46" height="17" rx="2"/><text class="dmm-txt" id="vmT" x="159" y="'+(ly+56)+'" text-anchor="end" style="font-size:10px"></text><text x="140" y="'+(ly+75)+'" text-anchor="middle" style="font-size:12px;font-weight:800;fill:#1A2228">V</text>';
   o+='<text x="44" y="'+(ly+20)+'" class="sm">LOAD</text>';
   o+='</svg>';
@@ -484,7 +497,7 @@ function readouts(){
     sum+='<tr><td>Pack voltage</td><td class="v">'+fV(R.rows[0]?Math.max.apply(null,R.rows.map(function(w){return w.voc})):0)+'</td><td class="m">'+c.ns+' × '+ch.e+' V = '+sig(ideal,3)+' V with nothing connected'+(nflip?" (if every cell faced the right way)":"")+'</td></tr>'+
       '<tr><td>Under load</td><td class="v">'+fV(R.V)+'</td><td class="m">A little less: each cell has some internal resistance</td></tr>'+
       '<tr><td>Current</td><td class="v">'+fA(R.I)+'</td><td class="m">Through the load. Each row carries about 1/'+c.np+' of it</td></tr>'+
-      '<tr><td>Amp-hours</td><td class="v">'+fAh(ah)+'</td><td class="m">'+c.np+' row'+(c.np>1?"s":"")+' × '+fAh(ch.ah)+' ('+ch.size+' '+ch.name.toLowerCase()+')</td></tr>'+
+      '<tr><td>Amp-hours</td><td class="v">'+fAh(ah)+'</td><td class="m">'+c.np+' row'+(c.np>1?"s":"")+' × '+fAh(ch.ah)+' ('+ch.label+')</td></tr>'+
       '<tr><td>Run time</td><td class="v">'+(nflip||R.I<=0?"—":"about "+fHours(ah/R.I))+'</td><td class="m">'+(nflip?"Not meaningful with a cell backwards":"Amp-hours ÷ current. Real cells give fewer amp-hours at high current")+'</td></tr>';
   } else {
     sum+='<tr><td>Voltage</td><td class="v">'+fV(R.V)+'</td><td class="m">'+c.ns+' × '+p.lab+' ≈ '+sig(c.ns*(S.zoom==="cell"?0.5:18),3)+' V when working hard; up to about '+sig(c.ns*p.voc,3)+' V with nothing connected</td></tr>'+
@@ -526,7 +539,7 @@ function texts(){
       '<p>Now go back to 2 in series and add rows <b>in parallel</b>. The voltage hardly changes, but the amp-hours and the run time go up.</p>'+
       '<p>Turn one cell around in a series row: the pack loses two cells’ worth of voltage. Then try it with 2 rows in parallel and watch the warning.</p>'+
       '<p>Switch to the <b>lithium coin</b> cell and a 10 Ω load. A coin cell has a lot of internal resistance, so its voltage sags and it can’t give much current. That’s why they run watches and calculators, not motors.</p>';
-    $("notes").innerHTML='<div class="note"><p><b>Inside a 9 V battery</b></p><p>A 9 V battery is <b>six 1.5 V cells in series</b> in one case. In many alkaline 9 V batteries they’re six small cylinders, AAAA size (a little thinner than AAA); others use six flat cells stacked up. Press <b>Build a 9 V battery</b> to wire it up.</p></div>'+
+    $("notes").innerHTML='<div class="note"><p><b>Inside a 9 V battery</b></p><div class="inside"><svg viewBox="0 0 150 70" aria-hidden="true"><rect x="2" y="2" width="146" height="66" rx="6" fill="none" stroke="var(--muted)" stroke-width="1.5" stroke-dasharray="4 3"/><rect x="10" y="14" width="16" height="44" rx="3" fill="#26313A" stroke="var(--ink)"/><rect x="10" y="14" width="16" height="10" rx="3" fill="#C98A2B"/><rect x="15" y="10" width="6" height="4" fill="var(--metal)"/><rect x="33" y="14" width="16" height="44" rx="3" fill="#26313A" stroke="var(--ink)"/><rect x="33" y="48" width="16" height="10" rx="3" fill="#C98A2B"/><rect x="38" y="58" width="6" height="4" fill="var(--metal)"/><rect x="56" y="14" width="16" height="44" rx="3" fill="#26313A" stroke="var(--ink)"/><rect x="56" y="14" width="16" height="10" rx="3" fill="#C98A2B"/><rect x="61" y="10" width="6" height="4" fill="var(--metal)"/><rect x="79" y="14" width="16" height="44" rx="3" fill="#26313A" stroke="var(--ink)"/><rect x="79" y="48" width="16" height="10" rx="3" fill="#C98A2B"/><rect x="84" y="58" width="6" height="4" fill="var(--metal)"/><rect x="102" y="14" width="16" height="44" rx="3" fill="#26313A" stroke="var(--ink)"/><rect x="102" y="14" width="16" height="10" rx="3" fill="#C98A2B"/><rect x="107" y="10" width="6" height="4" fill="var(--metal)"/><rect x="125" y="14" width="16" height="44" rx="3" fill="#26313A" stroke="var(--ink)"/><rect x="125" y="48" width="16" height="10" rx="3" fill="#C98A2B"/><rect x="130" y="58" width="6" height="4" fill="var(--metal)"/></svg><p style="flex:1 1 200px;margin:0">A 9 V battery is <b>six 1.5 V cells in series</b> in one case: 6 × 1.5 V = 9 V. In most alkaline 9 V batteries they’re six <b>AAAA</b> cells (a little thinner than AAA), joined end to end. Other kinds use six flat cells stacked up. Pick <b>9 V</b> above to wire whole 9 V batteries together.</p></div></div>'+
       '<div class="note"><p><b>Don’t mix cells</b></p><p>Use cells of the same type, size and age in a pack. A weak or backwards cell drags the others down and can be forced backward, which makes it leak or burst. Never try to recharge a primary cell.</p></div>';
   } else {
     $("tryBox").innerHTML='<p><b>Try this:</b> lower the sunlight. The current drops along with the light, but the voltage hardly changes until it’s quite dark.</p>'+
@@ -568,7 +581,6 @@ stepper("lUp",function(){ var c=cfg(); if(c.li<LOADS.length-1){ c.li++; build();
 function clean(){ var c=cfg(); [S.flip,S.shade].forEach(function(m){ for(var k in m){ var a=k.split(","); if(+a[0]>=c.np||+a[1]>=c.ns) delete m[k]; } }); }
 $("sunSl").addEventListener("input",function(){ S.sun=+this.value/100; $("sunV").textContent=this.value+"%"; build(); });
 $("resetBtn").addEventListener("click",function(){ if(S.mode==="pri") S.flip={}; else S.shade={}; build(); });
-$("nineBtn").addEventListener("click",function(){ S.chem="alk"; mark("chemSeg","alk"); S.cfg.pri={ns:6,np:1,li:LOADS.indexOf(470)}; S.flip={}; texts(); build(); });
 function mark(id,v){ $(id).querySelectorAll("button").forEach(function(x){x.setAttribute("aria-pressed",String(x.dataset.v===v))}); }
 function seg(id,fn){ $(id).addEventListener("click",function(e){ var b=e.target.closest("button"); if(!b) return; mark(id,b.dataset.v); fn(b.dataset.v); }); }
 seg("modeSeg",function(v){ S.mode=v; store.set("el-bat-mode",v); applyMode(); });
@@ -588,8 +600,8 @@ function rnd(a){ return a[Math.floor(Math.random()*a.length)]; }
 function makeProblem(){
   var q;
   if(S.mode==="pri"){
-    var t=rnd(["sv","pv","ah","time","count","spv"]), ch=rnd(["alk","alk","cz","coin"]), C=CHEM[ch], n=rnd([2,3,4,6]), m=rnd([2,3]);
-    var nm=C.name.toLowerCase()+" "+C.e+" V";
+    var t=rnd(["sv","pv","ah","time","count","spv"]), ch=rnd(["alk","alk","cz","coin","nine"]), C=CHEM[ch], n=rnd([2,3,4,6]), m=rnd([2,3]);
+    var nm=C.nm;
     if(t==="sv") q={txt:n+" "+nm+" cells are wired in series. What is the pack voltage (no load)?",ans:n*C.e,u:"V",how:n+" × "+C.e+" V = "+sig(n*C.e,3)+" V. In series the voltages add."};
     if(t==="pv") q={txt:m+" "+nm+" cells are wired in parallel. What is the pack voltage (no load)?",ans:C.e,u:"V",how:"In parallel the voltage stays the same as one cell: "+C.e+" V. The amp-hours add instead."};
     if(t==="spv") q={txt:"A pack is "+n+" "+nm+" cells in series, with "+m+" of those rows in parallel. What is the pack voltage?",ans:n*C.e,u:"V",how:"Only the cells in series add: "+n+" × "+C.e+" V = "+sig(n*C.e,3)+" V. The parallel rows don’t add voltage."};
